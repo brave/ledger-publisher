@@ -28,9 +28,13 @@ sites.forEach(function (site) {
   }
 })
 
-var results = {}
-underscore.keys(publishers).sort().forEach(function (publisher) {
-  results[publisher] = publishers[publisher]
-})
+var keys = underscore.keys(publishers).sort()
+console.log('\npublishers:')
+console.log(keys)
 
-console.log(JSON.stringify(results, null, 2))
+var mappings = {}
+keys.forEach(function (publisher) {
+  mappings[publisher] = publishers[publisher]
+})
+console.log('\nmappings:')
+console.log(JSON.stringify(mappings, null, 2))

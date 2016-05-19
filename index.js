@@ -10,9 +10,23 @@ var url = require('url')
     RLD = 'foo.bar'
     SLD = 'example.com'
     TLD = 'com'
+
+   search.yahoo.co.jp
+    QLD = 'search'
+    RLD = 'search'
+    SLD = 'yahoo.co.jp'
+    TLD = 'co.jp'
  */
 
 var rules = [
+ { condition: "SLD === 'medium.com' && (pathname.indexOf('/@') === 0 || pathname.split('/')[1] !== 'browse')",
+   consequent: "SLD + '/' + pathname.split('/')[1]"
+ },
+
+ { condition: "SLD === 'twitter.com'",
+   consequent: "SLD + '/' + pathname.split('/')[1]"
+ },
+
  { condition: "SLD === 'tumblr.com' && QLD !== 'www' && QLD !== 'assets' && QLD !== 'media'",
    consequent: "RLD + '.' + SLD"
  },
@@ -23,12 +37,8 @@ var rules = [
    consequent: "pathname.split('/')[1] + '.' + SLD"
  },
 
- { condition: "SLD === 'twitter.com'",
-   consequent: "SLD + '/' + pathname.split('/')[1]"
- },
-
- { condition: "SLD === 'medium.com' && (pathname.indexOf('/@') === 0 || pathname.split('/')[1] !== 'browse')",
-   consequent: "SLD + '/' + pathname.split('/')[1]"
+ { condition: "SLD === 'wordpress.com' || SLD === 'zendesk.com'",
+   consequent: "RLD + '.' + SLD"
  },
 
  { condition: "SLD === 'youtube.com' && pathname.indexOf('/channel/') === 0",
@@ -39,8 +49,14 @@ var rules = [
    markupP: true
  },
 
+ { condition: "[ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ].indexOf(SLD.split('.')[0]) !== -1",
+   consequent: null,
+   description: 'search engines'
+ },
+
  { condition: true,
-   consequent: 'SLD'
+   consequent: 'SLD',
+   description: 'the default rule'
  }
 ]
 
@@ -61,12 +77,16 @@ var getPublisher = function (path, markup) {
   props.TLD = tldjs.getPublicSuffix(props.host)
   if (!props.TLD) return
 
+  props = underscore.mapObject(props, function (value, key) { if (!underscore.isFunction(value)) return value })
+  props.URL = path
   props.SLD = tldjs.getDomain(props.host)
   props.RLD = tldjs.getSubdomain(props.host)
   props.QLD = props.RLD ? underscore.last(props.RLD.split('.')) : ''
 
   for (i = 0; i < rules.length; i++) {
     rule = rules[i]
+    result = datax.evaluate(rule.consequent, props)
+
     if (!datax.evaluate(rule.condition, props)) continue
 
     if (rule.markupP) {
@@ -83,13 +103,16 @@ var getPublisher = function (path, markup) {
       delete props.document
     }
 
-    result = datax.evaluate(rule.consequent, props)
-    if (!result) continue
+    if (result === '') continue
 
-    return trim(result, './')
+    if (result) return trim(result, './')
+
+    // map a null return to undefined
+    return
   }
 }
 
 module.exports = {
-  getPublisher: getPublisher
+  getPublisher: getPublisher,
+  rules: rules
 }
