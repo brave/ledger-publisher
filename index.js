@@ -31,6 +31,9 @@ var rules = [
    consequent: "SLD + '/' + pathname.split('/')[1]"
  },
 
+ { condition: "SLD === 'youtube.com' && pathname.indexOf('/channel/') === 0",
+   consequent: "SLD + pathname"
+ },
  { condition: "SLD === 'youtube.com' && pathname === '/watch'",
    consequent: '"https://www.youtube.com/channel/" + /content="([^"]*)"/.exec(location("div#watch7-content.watch-main-col meta[itemprop=channelId]"))[1]',
    markupP: true
@@ -112,4 +115,10 @@ sites.forEach(function (site) {
     console.log(location + ': ' + err.toString())
   }
 })
-console.log(JSON.stringify(publishers, null, 2))
+
+var results = {}
+underscore.keys(publishers).sort().forEach(function (publisher) {
+  results[publisher] = publishers[publisher]
+})
+
+console.log(JSON.stringify(results, null, 2))

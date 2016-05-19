@@ -4,6 +4,7 @@
   "description": "Routines to identify publishers for the Brave ledger.",
   "main": "index.js",
   "scripts": {
+    "lint": "gulp lint",
     "test": "npm run test-security",
     "test-security": "nsp check"
   },
