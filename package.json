@@ -1,0 +1,39 @@
+{
+  "name": "ledger-publisher",
+  "version": "0.6.8",
+  "description": "Routines to identify publishers for the Brave ledger.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test-security",
+    "test-security": "nsp check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brave/ledger-publisher"
+  },
+  "author": "Brave Developers <support@brave.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/brave/ledger-publisher/issues"
+  },
+  "homepage": "https://github.com/brave/ledger-publisher",
+  "dependencies": {
+    "data-expression": "1.0.0",
+    "jsdom": "9.1.0",
+    "tldjs": "1.6.2",
+    "underscore": "1.8.3",
+    "underscore.string": "3.3.4"
+  },
+  "engines": {
+    "node": "5.6.0",
+    "npm": "3.6.0"
+  },
+  "devDependencies": {
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-standard": "^5.2.2",
+    "node-uuid": "^1.4.7",
+    "nsp": "^2.2.0",
+    "run-sequence": "^1.1.0"
+  }
+}
