@@ -32,10 +32,10 @@ var rules = [
  },
 
  { condition: "SLD === 'youtube.com' && pathname.indexOf('/channel/') === 0",
-   consequent: "SLD + pathname"
+   consequent: 'SLD + pathname'
  },
  { condition: "SLD === 'youtube.com' && pathname === '/watch'",
-   consequent: '"https://www.youtube.com/channel/" + /content="([^"]*)"/.exec(location("div#watch7-content.watch-main-col meta[itemprop=channelId]"))[1]',
+   consequent: '"youtube.com/channel/" + /content="([^"]*)"/.exec(location(markup, document, "div#watch7-content.watch-main-col meta[itemprop=channelId]"))[1]',
    markupP: true
  },
 
@@ -93,32 +93,3 @@ var getPublisher = function (path, markup) {
 module.exports = {
   getPublisher: getPublisher
 }
-
-var fs = require('fs')
-var sites = JSON.parse(fs.readFileSync(process.env.HOME + '/Library/Application Support/Brave/session-store-1')).sites
-var locations = {}
-var publishers = {}
-sites.forEach(function (site) {
-  var publisher
-  var location = site.location
-
-  if ((!location) || (locations[location])) return
-  locations[location] = site
-
-  try {
-    publisher = getPublisher(location)
-    if (!publisher) return
-
-    if (!publishers[publisher]) publishers[publisher] = []
-    publishers[publisher].push(location)
-  } catch (err) {
-    console.log(location + ': ' + err.toString())
-  }
-})
-
-var results = {}
-underscore.keys(publishers).sort().forEach(function (publisher) {
-  results[publisher] = publishers[publisher]
-})
-
-console.log(JSON.stringify(results, null, 2))
