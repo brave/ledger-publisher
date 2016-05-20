@@ -1,4 +1,5 @@
 var datax = require('data-expression')
+var Joi = require('joi')
 var jsdom = require('jsdom')
 var tldjs = require('tldjs')
 var trim = require('underscore.string/trim')
@@ -17,6 +18,16 @@ var url = require('url')
     SLD = 'yahoo.co.jp'
     TLD = 'co.jp'
  */
+
+var schema = Joi.array().items(Joi.object().keys(
+  { condition: Joi.alternatives().try(Joi.string().description('a JavaScript boolean expression'),
+                                      Joi.boolean().allow(true).description('only "true" makes sense')).required(),
+    consequent: Joi.alternatives().try(Joi.string().description('a JavaScript string expression'),
+                                      Joi.any().allow(false, null).description('or null').required()),
+    markupP: Joi.boolean().optional().description('HTML required to evaluate consequent'),
+    description: Joi.string().optional().description('a brief annotation')
+  }
+))
 
 var rules = [
  { condition: "SLD === 'medium.com' && (pathname.indexOf('/@') === 0 || pathname.split('/')[1] !== 'browse')",
@@ -85,7 +96,6 @@ var getPublisher = function (path, markup) {
 
   for (i = 0; i < rules.length; i++) {
     rule = rules[i]
-    result = datax.evaluate(rule.consequent, props)
 
     if (!datax.evaluate(rule.condition, props)) continue
 
@@ -103,16 +113,18 @@ var getPublisher = function (path, markup) {
       delete props.document
     }
 
+    result = rule.consequent ? datax.evaluate(rule.consequent, props) : rule.consequent
     if (result === '') continue
 
     if (result) return trim(result, './')
 
-    // map a null return to undefined
+    // map null/false to undefined
     return
   }
 }
 
 module.exports = {
   getPublisher: getPublisher,
-  rules: rules
+  rules: rules,
+  schema: schema
 }

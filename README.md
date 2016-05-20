@@ -115,7 +115,7 @@ the `consequent` is evaluated.
     5.3. If the resulting value is the empty string (`""`),
 then execution continues with the next rule.
 
-    5.4. If the resulting value is `null` or `undefined`,
+    5.4. If the resulting value is `false`, `null` or `undefined`,
 then the publisher identity is `undefined`.
 
     5.5. Otherwise,
