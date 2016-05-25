@@ -123,8 +123,55 @@ var getPublisher = function (path, markup) {
   }
 }
 
+var Synopsis = function (options) {
+  this.options = options || {}
+  underscore.defaults(this.options, { minDuration: 2000, durationWeight: 1 / (30 * 1000) })
+
+  this.publishers = {}
+}
+
+Synopsis.prototype.addClick = function (path, duration, markup) {
+  var publisher
+
+  if (duration < this.options.minDuration) return
+
+  try { publisher = getPublisher(path, markup) } catch (ex) { return }
+  if (!publisher) return
+
+  if (!this.publishers[publisher]) this.publishers[publisher] = { views: 0, duration: 0 }
+  this.publishers[publisher].views++
+  this.publishers[publisher].duration += duration
+
+  this.publishers[publisher].score = this.publishers[publisher].views +
+                                       (this.publishers[publisher].duration * this.options.durationWeight)
+}
+
+Synopsis.prototype.topN = function (n) {
+  var i, results, total
+
+  results = []
+  underscore.keys(this.publishers).forEach(function (publisher) {
+    results.push({ publisher: publisher, score: this.publishers[publisher].score })
+  }, this)
+  results = underscore.sortBy(results, function (entry) { return -entry.score })
+
+  if ((n > 0) && (results.length > n)) results = results.slice(0, n)
+  n = results.length
+
+  total = 0
+  for (i = 0; i < n; i++) { total += results[i].score }
+  if (total === 0) return
+
+  for (i = 0; i < n; i++) {
+    results[i].weight = results[i].score / total
+    delete results[i].score
+  }
+  return results
+}
+
 module.exports = {
   getPublisher: getPublisher,
   rules: rules,
-  schema: schema
+  schema: schema,
+  Synopsis: Synopsis
 }
