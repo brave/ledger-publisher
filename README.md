@@ -158,16 +158,44 @@ The synopsis includes a rolling window so that older visits are removed.
     // each time a page is unloaded, record the focus duration
     // markup is an optional third-parameter, cf., getPublisher above
 
-    synopsis.addVisit('URL', duration)
+        synopsis.addVisit('URL', duration)
+
+In order to calculate the score,
+options can be provided when creating the object.
+The defaults are:
+
+    { visitWeight    : 1
+    , minDuration    : 2 * 1000
+    , durationWeight : 1 / (30 * 1000)
+    , numFrames      : 30
+    , frameSize      : 24 * 60 * 60 * 1000
+    }
+
+When `addVisit` is invoked,
+the duration must be at least `minDuration` milliseconds in length.
+If so,
+the score for the visit is calculated as:
+
+    visitWeight + (duration * durationWeight)
+
+So, 
+a page view with a minute long focus will result in a score of `3`.
+If the score is negative,
+then it is not recorded.
+
+The sliding window consist of `numFrames` frames,
+each having a timeframe of `frameSize` milliseconds.
+So, for the default values,
+the sliding window will be `30` days long.
 
 Once a synopsis is underway,
 the "top N" publishers can be determined.
 Each publisher will has an associated weighted score,
-so that the sum of the scores should approximate `1`:
+so that the sum of the scores "should approximate" `1.0`:
 
     // get the top "N" publishers
 
-    console.log(JSON.stringify(synopsis.topN(20), null, 2))
+       console.log(JSON.stringify(synopsis.topN(20), null, 2))
 
     // e.g., [ { publisher: "example.com", weight 0.0123456789 } ... ]
 
@@ -179,7 +207,7 @@ using the weighted score:
 
     // select a single publisher
 
-    console.log(synopsis.winner())
+       console.log(synopsis.winner())
 
     // e.g., "brave.com"
 
