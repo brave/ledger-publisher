@@ -1,14 +1,15 @@
 # ledger-publisher
-Routines to identify publishers for the [Brave ledger](https://github.com/brave/ledger).
+Routines to identify publishers for the [Brave ledger](https://github.com/brave/ledger):
 
-At present,
-there is only one method:
+* [Mapping a URL to a Publisher Identity](#publisher-identities)
+* [Adding a Page Visit to a Browsing Synopsis](#page-visits)
+
+## Publisher Identities
+A _publisher identity_ is derived from a URL and is intended to correspond to the publisher associated with the URL.
 
     var getPublisher = require('ledger-publisher').getPublisher
 
     var publisher = getPublisher('URL')
-
-A _publisher identity_ is derived from a URL and is intended to correspond to the publisher associated with the URL.
 
 Note that because some domains host multiple publishers,
 a publisher identity may contain both a _domain_ and a _path_ separated by a solidus(`/`).
@@ -30,7 +31,13 @@ but only if these URLs:
 
 are both provisioned.
 
-## Terminology
+Finally,
+certain URLs aren't really appropriate for a publisher mapping.
+For example,
+if a URL returns a 302,
+don't bother mapping that URL.
+
+### Terminology
 Consider this URL:
 
     https://foo.bar.example.com/component1/...?query
@@ -55,7 +62,7 @@ Consider this URL:
 The string `co.jp` corresponds to the TLD, the string `yahoo.co.jp` corresponds to the SLD,
 and the QLD and RLD are both the string `search`.
 
-## Syntax
+### Syntax
 The ABNF syntax for a publisher identity is:
 
     publisher-identity = domain [ "/" segment ]
@@ -73,7 +80,7 @@ The ABNF syntax for a publisher identity is:
 
                segment = *pchar                          ; as defined in Section 3.3 of RFC 3986
 
-## Mapping
+### Mapping
 The package uses a rule set expressed as a [JavaScript](https://en.wikipedia.org/wiki/JavaScript) array.
 
 Each rule in the array consists of an object with two mandatory properties:
@@ -128,7 +135,7 @@ An initial rule set is available as:
 
     require('ledger-publisher').rules
 
-## Your Help is Needed!
+### Your Help is Needed!
 Please submit a [pull request](https://github.com/brave/ledger-publisher/pulls) with updates to the rule set.
 
 If you are running the [Brave Browser](https://brave.com/downloads.html) on your desktop,
@@ -138,6 +145,45 @@ you can run
 
 in order to examine all the URLs you have visited in your current session (from the file `session-store-1`)
 and see the resulting publisher identities.
+
+## Page Visits
+A _page visit_ is just what you'd expect,
+but it requires both a URL and the duration of the focus (in milliseconds).
+A synopsis is a collection of page visits that have been reduced to a a publisher and a score.
+The synopsis includes a rolling window so that older visits are removed.
+
+    var synopsis = new (require('ledger-publisher').Synopsis)()
+
+
+    // each time a page is unloaded, record the focus duration
+    // markup is an optional third-parameter, cf., getPublisher above
+
+    synopsis.addVisit('URL', duration)
+
+Once a synopsis is underway,
+the "top N" publishers can be determined.
+Each publisher will has an associated weighted score,
+so that the sum of the scores should approximate `1`:
+
+    // get the top "N" publishers
+
+    console.log(JSON.stringify(synopsis.topN(20), null, 2))
+
+    // e.g., [ { publisher: "example.com", weight 0.0123456789 } ... ]
+
+The parameter to the `topN` method is optional.
+
+Similarly,
+to pseudo-randomly select a single publisher,
+using the weighted score:
+
+    // select a single publisher
+
+    console.log(synopsis.winner())
+
+    // e.g., "brave.com"
+
+A optional parameter may be supplied to the `winner` method
 
 ## Acknowledgements
 Many thanks to [Elijah Insua](https://github.com/tmpvar) for the excellent [jsdom](https://github.com/tmpvar/jsdom) package,

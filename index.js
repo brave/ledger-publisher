@@ -1,3 +1,4 @@
+var crypto = require('crypto')
 var datax = require('data-expression')
 var Joi = require('joi')
 var jsdom = require('jsdom')
@@ -124,30 +125,46 @@ var getPublisher = function (path, markup) {
 }
 
 var Synopsis = function (options) {
-  this.options = options || {}
-  underscore.defaults(this.options, { minDuration: 2000, durationWeight: 1 / (30 * 1000) })
+  var p
 
   this.publishers = {}
+  if (typeof options === 'string') {
+    p = JSON.parse(options)
+
+    options = p.options
+    this.publishers = p.publishers
+  }
+
+  this.options = options || {}
+  underscore.defaults(this.options, { visitWeight: 1, minDuration: 2 * 1000, durationWeight: 1 / (30 * 1000),
+                                      numFrames: 30, frameSize: 24 * 60 * 60 * 1000 })
 }
 
-Synopsis.prototype.addClick = function (path, duration, markup) {
-  var publisher
+Synopsis.prototype.addVisit = function (path, duration, markup) {
+  var publisher, score
+  var now = underscore.now()
 
   if (duration < this.options.minDuration) return
+
+  score = this.options.visitWeight + (duration * this.options.durationWeight)
+  if (score <= 0) return
 
   try { publisher = getPublisher(path, markup) } catch (ex) { return }
   if (!publisher) return
 
-  if (!this.publishers[publisher]) this.publishers[publisher] = { views: 0, duration: 0 }
-  this.publishers[publisher].views++
-  this.publishers[publisher].duration += duration
+  if (!this.publishers[publisher]) this.publishers[publisher] = { score: 0, window: [ { timestamp: now, score: 0 } ] }
 
-  this.publishers[publisher].score = this.publishers[publisher].views +
-                                       (this.publishers[publisher].duration * this.options.durationWeight)
+  if (this.publishers[publisher].window[0].timestamp <= now - this.frameSize) {
+    this.publishers[publisher].window.splice(0, 0, { timestamp: now, score: 0 })
+  }
+  this.publishers[publisher].window[0].score += score
+  this.publishers[publisher].score += score
 }
 
 Synopsis.prototype.topN = function (n) {
   var i, results, total
+
+  this.prune()
 
   results = []
   underscore.keys(this.publishers).forEach(function (publisher) {
@@ -169,9 +186,68 @@ Synopsis.prototype.topN = function (n) {
   return results
 }
 
+Synopsis.prototype.winner = function (n) {
+  var i, upper
+  var point = random()
+  var results = this.topN(n)
+
+  upper = 0
+  for (i = 0; i < results.length; i++) {
+    upper += results[i].weight
+    if (upper >= point) return results[i].publisher
+  }
+}
+
+Synopsis.prototype.toJSON = function () {
+  this.prune()
+
+  return { options: this.options, publishers: this.publishers }
+}
+
+Synopsis.prototype.prune = function () {
+  var then = underscore.now() - (this.numFrames * this.frameSize)
+
+  underscore.keys(this.publishers).forEach(function (publisher) {
+    var i
+    var entry = this.publishers[publisher]
+    var score = 0
+
+    for (i = 0; i < entry.window.length; i++) {
+      if (entry.window[i].timestamp < then) break
+
+      score += entry.window[i].score
+    }
+
+    if (i < entry.window.length) {
+      entry.score = score
+      entry.window = entry.window.slice(0, i)
+    }
+  }, this)
+}
+
+var i, j
+var bits = 53
+var bytes = Math.ceil(bits / 8)
+var mask = []
+
+for (i = 0; i <= bits; i++) mask[i] = Math.pow(2, i + 1) - 1
+mask[bits] = 0
+for (i = 0, j = (bytes - 1) * 8; i < bytes; i++, j -= 8) mask[bits] += 255 * mask[j]
+
+var random = function () {
+  var i, j
+  var string = crypto.randomBytes(bytes)
+  var result = 0
+
+  for (i = 0, j = (bytes - 1) * 8; i < bytes; i++, j -= 8) result += string[i] * mask[j]
+
+  return (result / mask[bits])
+}
+
 module.exports = {
   getPublisher: getPublisher,
   rules: rules,
   schema: schema,
-  Synopsis: Synopsis
+  Synopsis: Synopsis,
+  random: random
 }

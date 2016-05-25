@@ -7,13 +7,13 @@ var sites = JSON.parse(fs.readFileSync(process.env.HOME + '/Library/Application 
 var locations = {}
 var publishers = {}
 
-synopsis = new Synopsis()
+var synopsis = new Synopsis()
 
 sites.forEach(function (site) {
   var markup, publisher
   var location = site.location
 
-  if (location) synopsis.addClick(location, Math.random() * 300 * 1000)
+  if (location) synopsis.addVisit(location, Math.random() * 300 * 1000)
 
   if ((!location) || (locations[location])) return
   locations[location] = site
@@ -46,3 +46,7 @@ console.log(JSON.stringify(mappings, null, 2))
 
 console.log('\nsynopsis:')
 console.log(JSON.stringify(synopsis.topN(), null, 2))
+
+console.log('\ntoday\'s winner:')
+console.log(synopsis.winner())
+
