@@ -1,7 +1,7 @@
-var crypto = require('crypto')
 var datax = require('data-expression')
 var Joi = require('joi')
 var jsdom = require('jsdom')
+var random = require('random-lib')
 var tldjs = require('tldjs')
 var trim = require('underscore.string/trim')
 var underscore = require('underscore')
@@ -152,12 +152,21 @@ Synopsis.prototype.addVisit = function (path, duration, markup) {
   try { publisher = getPublisher(path, markup) } catch (ex) { return }
   if (!publisher) return
 
-  if (!this.publishers[publisher]) this.publishers[publisher] = { score: 0, window: [ { timestamp: now, score: 0 } ] }
+  if (!this.publishers[publisher]) {
+    this.publishers[publisher] = { visits: 0, duration: 0, score: 0,
+                                   window: [ { timestamp: now, visits: 0, duration: 0, score: 0 } ] }
+  }
 
   if (this.publishers[publisher].window[0].timestamp <= now - this.frameSize) {
-    this.publishers[publisher].window.splice(0, 0, { timestamp: now, score: 0 })
+    this.publishers[publisher].window.splice(0, 0, { timestamp: now, visits: 0, duration: 0, score: 0 })
   }
+
+  this.publishers[publisher].window[0].visits++
+  this.publishers[publisher].window[0].duration += duration
   this.publishers[publisher].window[0].score += score
+
+  this.publishers[publisher].visits++
+  this.publishers[publisher].duration += duration
   this.publishers[publisher].score += score
 }
 
@@ -168,7 +177,7 @@ Synopsis.prototype.topN = function (n) {
 
   results = []
   underscore.keys(this.publishers).forEach(function (publisher) {
-    results.push({ publisher: publisher, score: this.publishers[publisher].score })
+    results.push(underscore.extend({ publisher: publisher }, underscore.omit(this.publishers[publisher], 'window')))
   }, this)
   results = underscore.sortBy(results, function (entry) { return -entry.score })
 
@@ -188,7 +197,7 @@ Synopsis.prototype.topN = function (n) {
 
 Synopsis.prototype.winner = function (n) {
   var i, upper
-  var point = random()
+  var point = random.randomFloat()
   var results = this.topN(n)
 
   upper = 0
@@ -205,49 +214,42 @@ Synopsis.prototype.toJSON = function () {
 }
 
 Synopsis.prototype.prune = function () {
-  var then = underscore.now() - (this.numFrames * this.frameSize)
+  var now = underscore.now()
+  var then = now - (this.numFrames * this.frameSize)
 
   underscore.keys(this.publishers).forEach(function (publisher) {
     var i
+    var duration = 0
     var entry = this.publishers[publisher]
     var score = 0
+    var visits = 0
+
+    // NB: in case of user editing...
+    if (!entry.window) {
+      entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, score: entry.score } ]
+      return
+    }
 
     for (i = 0; i < entry.window.length; i++) {
       if (entry.window[i].timestamp < then) break
 
+      visits += entry.window[i].visits
+      duration += entry.window[i].duration
       score += entry.window[i].score
     }
 
     if (i < entry.window.length) {
+      entry.visits = visits
+      entry.duration = duration
       entry.score = score
       entry.window = entry.window.slice(0, i)
     }
   }, this)
 }
 
-var i, j
-var bits = 53
-var bytes = Math.ceil(bits / 8)
-var mask = []
-
-for (i = 0; i <= bits; i++) mask[i] = Math.pow(2, i + 1) - 1
-mask[bits] = 0
-for (i = 0, j = (bytes - 1) * 8; i < bytes; i++, j -= 8) mask[bits] += 255 * mask[j]
-
-var random = function () {
-  var i, j
-  var string = crypto.randomBytes(bytes)
-  var result = 0
-
-  for (i = 0, j = (bytes - 1) * 8; i < bytes; i++, j -= 8) result += string[i] * mask[j]
-
-  return (result / mask[bits])
-}
-
 module.exports = {
   getPublisher: getPublisher,
   rules: rules,
   schema: schema,
-  Synopsis: Synopsis,
-  random: random
+  Synopsis: Synopsis
 }

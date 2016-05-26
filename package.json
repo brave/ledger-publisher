@@ -1,6 +1,6 @@
 {
   "name": "ledger-publisher",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Routines to identify publishers for the Brave ledger.",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "data-expression": "1.0.0",
     "joi": "https://github.com/mrose17/joi.git#a8597b9ef6d63f0ceeff7122a0e45cb1f99ba248",
     "jsdom": "9.1.0",
+    "random-lib": "2.1.0",
     "tldjs": "1.6.2",
     "underscore": "1.8.3",
     "underscore.string": "3.3.4"
