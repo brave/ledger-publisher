@@ -136,8 +136,15 @@ var Synopsis = function (options) {
   }
 
   this.options = options || {}
-  underscore.defaults(this.options, { visitWeight: 1, minDuration: 2 * 1000, durationWeight: 1 / (30 * 1000),
-                                      numFrames: 30, frameSize: 24 * 60 * 60 * 1000 })
+  underscore.defaults(this.options, { minDuration: 2 * 1000, durationWeight: 1 / (30 * 1000),
+                                      numFrames: 30, frameSize: 24 * 60 * 60 * 1000
+                                    })
+
+  this.options._a = (1 / (this.options.durationWeight * 2)) - this.options.minDuration
+  this.options._a2 = this.options._a * 2
+  this.options._a4 = this.options._a2 * 2
+  this.options._b = this.options.minDuration - this.options._a
+  this.options._b2 = this.options._b * this.options._b
 }
 
 Synopsis.prototype.addVisit = function (path, duration, markup) {
@@ -146,7 +153,7 @@ Synopsis.prototype.addVisit = function (path, duration, markup) {
 
   if (duration < this.options.minDuration) return
 
-  score = this.options.visitWeight + (duration * this.options.durationWeight)
+  score = this.score(duration)
   if (score <= 0) return
 
   try { publisher = getPublisher(path, markup) } catch (ex) { return }
@@ -211,6 +218,11 @@ Synopsis.prototype.toJSON = function () {
   this.prune()
 
   return { options: this.options, publishers: this.publishers }
+}
+
+// courtesy of @dimitry-xyz: https://github.com/brave/ledger/issues/2#issuecomment-221752002
+Synopsis.prototype.score = function (duration) {
+  return (((-this.options._b) + Math.sqrt(this.options._b2 + (this.options._a4 * duration))) / this.options._a2)
 }
 
 Synopsis.prototype.prune = function () {

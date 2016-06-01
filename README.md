@@ -164,8 +164,7 @@ In order to calculate the score,
 options can be provided when creating the object.
 The defaults are:
 
-    { visitWeight    : 1
-    , minDuration    : 2 * 1000
+    { minDuration    : 2 * 1000
     , durationWeight : 1 / (30 * 1000)
     , numFrames      : 30
     , frameSize      : 24 * 60 * 60 * 1000
