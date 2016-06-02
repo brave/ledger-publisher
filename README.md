@@ -80,6 +80,12 @@ The ABNF syntax for a publisher identity is:
 
                segment = *pchar                          ; as defined in Section 3.3 of RFC 3986
 
+Note that a publisher identity must not include either a fragment (`#...`) or a query (`?...`).
+
+    var isPublisher = require('ledger-publisher').isPublisher
+
+    if (isPublisher('...')) ...
+
 ### Mapping
 The package uses a rule set expressed as a [JavaScript](https://en.wikipedia.org/wiki/JavaScript) array.
 

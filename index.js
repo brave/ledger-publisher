@@ -124,6 +124,17 @@ var getPublisher = function (path, markup) {
   }
 }
 
+var isPublisher = function (publisher) {
+  var props
+  var parts = publisher.split('/')
+
+  if (!tldjs.isValid(parts[0])) return false
+  if (parts.length === 1) return true
+  
+  props = url.parse('https://' + publisher)
+  return ((!props.hash) && (!props.search))
+}
+
 var Synopsis = function (options) {
   var p
 
@@ -261,6 +272,7 @@ Synopsis.prototype.prune = function () {
 
 module.exports = {
   getPublisher: getPublisher,
+  isPublisher: isPublisher,
   rules: rules,
   schema: schema,
   Synopsis: Synopsis
