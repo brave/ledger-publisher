@@ -139,7 +139,7 @@ var Synopsis = function (options) {
   var p
 
   this.publishers = {}
-  if (typeof options === 'string') {
+  if ((typeof options === 'string') || (Buffer.isBuffer(options))) {
     p = JSON.parse(options)
 
     options = p.options
