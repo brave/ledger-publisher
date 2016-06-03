@@ -130,7 +130,7 @@ var isPublisher = function (publisher) {
 
   if (!tldjs.isValid(parts[0])) return false
   if (parts.length === 1) return true
-  
+
   props = url.parse('https://' + publisher)
   return ((!props.hash) && (!props.search))
 }
@@ -186,6 +186,8 @@ Synopsis.prototype.addVisit = function (path, duration, markup) {
   this.publishers[publisher].visits++
   this.publishers[publisher].duration += duration
   this.publishers[publisher].score += score
+
+  return true
 }
 
 Synopsis.prototype.topN = function (n) {
