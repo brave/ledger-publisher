@@ -208,10 +208,7 @@ Synopsis.prototype.topN = function (n) {
   for (i = 0; i < n; i++) { total += results[i].score }
   if (total === 0) return
 
-  for (i = 0; i < n; i++) {
-    results[i].weight = results[i].score / total
-    delete results[i].score
-  }
+  for (i = 0; i < n; i++) results[i] = { publisher: results[i].publisher, weight: results[i].score / total }
   return results
 }
 
