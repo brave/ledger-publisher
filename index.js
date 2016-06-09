@@ -187,7 +187,7 @@ Synopsis.prototype.addVisit = function (path, duration, markup) {
   this.publishers[publisher].duration += duration
   this.publishers[publisher].score += score
 
-  return true
+  return publisher
 }
 
 Synopsis.prototype.topN = function (n) {
