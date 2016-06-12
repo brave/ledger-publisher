@@ -175,9 +175,9 @@ Synopsis.prototype.addVisit = function (path, duration, markup) {
                                    window: [ { timestamp: now, visits: 0, duration: 0, score: 0 } ] }
   }
 
-  if (this.publishers[publisher].window[0].timestamp <= now - this.frameSize) {
+  if (this.publishers[publisher].window[0].timestamp <= now - this.options.frameSize) {
     this.publishers[publisher].window =
-      this.publishers[publisher].window.splice(0, 0, { timestamp: now, visits: 0, duration: 0, score: 0 })
+      [{ timestamp: now, visits: 0, duration: 0, score: 0 }].concat(this.publishers[publisher].window)
   }
 
   this.publishers[publisher].window[0].visits++
@@ -238,7 +238,7 @@ Synopsis.prototype.score = function (duration) {
 
 Synopsis.prototype.prune = function () {
   var now = underscore.now()
-  var then = now - (this.numFrames * this.frameSize)
+  var then = now - (this.options.numFrames * this.options.frameSize)
 
   underscore.keys(this.publishers).forEach(function (publisher) {
     var i
