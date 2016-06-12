@@ -176,7 +176,8 @@ Synopsis.prototype.addVisit = function (path, duration, markup) {
   }
 
   if (this.publishers[publisher].window[0].timestamp <= now - this.frameSize) {
-    this.publishers[publisher].window.splice(0, 0, { timestamp: now, visits: 0, duration: 0, score: 0 })
+    this.publishers[publisher].window =
+      this.publishers[publisher].window.splice(0, 0, { timestamp: now, visits: 0, duration: 0, score: 0 })
   }
 
   this.publishers[publisher].window[0].visits++
