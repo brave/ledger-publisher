@@ -35,6 +35,10 @@ var rules = [
    consequent: "SLD + '/' + pathname.split('/')[1]"
  },
 
+ { condition: "SLD === 'twitter.com' && pathname.split('/')[1] === 'i'",
+   consequent: null,
+   description: 'notifications'
+ },
  { condition: "SLD === 'twitter.com'",
    consequent: "SLD + '/' + pathname.split('/')[1]"
  },
@@ -64,6 +68,14 @@ var rules = [
  { condition: "[ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ].indexOf(SLD.split('.')[0]) !== -1",
    consequent: null,
    description: 'search engines'
+ },
+ { condition: "[ 'twimg' ].indexOf(SLD.split('.')[0]) !== -1",
+   consequent: null,
+   description: 'image stores'
+ },
+ { condition: "[ 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
+   consequent: null,
+   description: 'campaign engines'
  },
 
  { condition: true,
