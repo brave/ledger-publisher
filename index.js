@@ -183,6 +183,13 @@ Synopsis.prototype.addVisit = function (path, duration, markup) {
   return this.addPublisher(publisher, duration)
 }
 
+Synopsis.prototype.initPublisher = function (publisher) {
+  if (this.publishers[publisher]) return
+
+  this.publishers[publisher] = { visits: 0, duration: 0, score: 0,
+                                 window: [ { timestamp: underscore.now(), visits: 0, duration: 0, score: 0 } ] }
+}
+
 Synopsis.prototype.addPublisher = function (publisher, duration) {
   var score
   var now = underscore.now()
@@ -192,10 +199,7 @@ Synopsis.prototype.addPublisher = function (publisher, duration) {
   score = this.score(duration)
   if (score <= 0) return
 
-  if (!this.publishers[publisher]) {
-    this.publishers[publisher] = { visits: 0, duration: 0, score: 0,
-                                   window: [ { timestamp: now, visits: 0, duration: 0, score: 0 } ] }
-  }
+  if (!this.publishers[publisher]) this.initPublisher(publisher)
 
   if (this.publishers[publisher].window[0].timestamp <= now - this.options.frameSize) {
     this.publishers[publisher].window =
