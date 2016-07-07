@@ -69,7 +69,7 @@ var rules = [
    consequent: null,
    description: 'search engines'
  },
- { condition: "[ 'twimg' ].indexOf(SLD.split('.')[0]) !== -1",
+ { condition: "[ 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
    consequent: null,
    description: 'image stores'
  },
@@ -171,16 +171,26 @@ var Synopsis = function (options) {
 }
 
 Synopsis.prototype.addVisit = function (path, duration, markup) {
-  var publisher, score
+  var publisher
+
+  if (duration < this.options.minDuration) return
+
+  if (this.score(duration) <= 0) return
+
+  try { publisher = getPublisher(path, markup) } catch (ex) { return }
+  if (!publisher) return
+
+  return this.addPublisher(publisher, duration)
+}
+
+Synopsis.prototype.addPublisher = function (publisher, duration) {
+  var score
   var now = underscore.now()
 
   if (duration < this.options.minDuration) return
 
   score = this.score(duration)
   if (score <= 0) return
-
-  try { publisher = getPublisher(path, markup) } catch (ex) { return }
-  if (!publisher) return
 
   if (!this.publishers[publisher]) {
     this.publishers[publisher] = { visits: 0, duration: 0, score: 0,
