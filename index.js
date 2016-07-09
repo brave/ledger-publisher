@@ -26,6 +26,7 @@ var schema = Joi.array().items(Joi.object().keys(
     consequent: Joi.alternatives().try(Joi.string().description('a JavaScript string expression'),
                                       Joi.any().allow(false, null).description('or null').required()),
     markupP: Joi.boolean().optional().description('HTML required to evaluate consequent'),
+    dom: Joi.any().optional().description('DOM equivalent logic'),
     description: Joi.string().optional().description('a brief annotation')
   }
 ))
@@ -40,13 +41,19 @@ var rules = [
    description: 'notifications'
  },
  { condition: "SLD === 'twitter.com'",
-   consequent: "SLD + '/' + pathname.split('/')[1]"
+   consequent: "SLD + '/' + pathname.split('/')[1]",
+   dom: {
+     faviconURL: {
+       nodeSelector: 'img.ProfileAvatar-image',
+       consequent: 'node.getAttribute("src")'
+     }
+   }
  },
 
  { condition: "SLD === 'tumblr.com' && QLD !== 'www' && QLD !== 'assets' && QLD !== 'media'",
    consequent: "RLD + '.' + SLD"
  },
- { condition: "SLD === 'tumblr.com' && QLD === 'www' && (pathname == '/' || pathname == '/dashboard' || pathname == '/login')",
+ { condition: "SLD === 'tumblr.com' && QLD === 'www' && (pathname === '/' || pathname === '/dashboard' || pathname === '/login')",
    consequent: 'SLD'
  },
  { condition: "SLD === 'tumblr.com' && QLD === 'www'",
@@ -62,7 +69,17 @@ var rules = [
  },
  { condition: "SLD === 'youtube.com' && pathname === '/watch'",
    consequent: '"youtube.com/channel/" + /content="([^"]*)"/.exec(location(markup, document, "div#watch7-content.watch-main-col meta[itemprop=channelId]"))[1]',
-   markupP: true
+   markupP: true,
+   dom: {
+     publisher: {
+       nodeSelector: "#watch7-content.watch-main-col meta[itemprop='channelId']",
+       consequent: '"youtube.com/channel/" + node.getAttribute("content")'
+     },
+     faviconURL: {
+       nodeSelector: '#watch7-user-header.spf-link img',
+       consequent: 'node.getAttribute("data-thumb")'
+     }
+   }
  },
 
  { condition: "[ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ].indexOf(SLD.split('.')[0]) !== -1",
