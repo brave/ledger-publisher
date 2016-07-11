@@ -36,7 +36,7 @@ var rules = [
    consequent: "SLD + '/' + pathname.split('/')[1]"
  },
 
- { condition: "SLD === 'twitter.com' && pathname.split('/')[1] === 'i'",
+ { condition: "SLD === 'twitter.com' && [ 'i', 'search' ].indexOf(pathname.split('/')[1]) !== -1",
    consequent: null,
    description: 'notifications'
  },
@@ -50,10 +50,10 @@ var rules = [
    }
  },
 
- { condition: "SLD === 'tumblr.com' && QLD !== 'www' && QLD !== 'assets' && QLD !== 'media'",
+ { condition: "SLD === 'tumblr.com' && [ 'www', 'assets', 'media' ].indexOf(QLD) === -1",
    consequent: "RLD + '.' + SLD"
  },
- { condition: "SLD === 'tumblr.com' && QLD === 'www' && (pathname === '/' || pathname === '/dashboard' || pathname === '/login')",
+ { condition: "SLD === 'tumblr.com' && QLD === 'www' && [ '/', '/dashboard', '/login' ].indexOf(pathName) !== -1",
    consequent: 'SLD'
  },
  { condition: "SLD === 'tumblr.com' && QLD === 'www'",
