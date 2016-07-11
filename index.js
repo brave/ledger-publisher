@@ -90,7 +90,7 @@ var rules = [
    consequent: null,
    description: 'image stores'
  },
- { condition: "[ 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
+ { condition: "[ 'campaign-archive1', 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
    consequent: null,
    description: 'campaign engines'
  },
@@ -146,7 +146,7 @@ var getPublisher = function (path, markup) {
     result = rule.consequent ? datax.evaluate(rule.consequent, props) : rule.consequent
     if (result === '') continue
 
-    if (result) return trim(result, './')
+    if (typeof result === 'string') return trim(result, './')
 
     // map null/false to undefined
     return
