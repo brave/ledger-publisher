@@ -31,38 +31,9 @@ var schema = Joi.array().items(Joi.object().keys(
 ))
 
 var rules = [
- { condition: "SLD === 'medium.com' && (pathname.indexOf('/@') === 0 || pathname.split('/')[1] !== 'browse')",
-   consequent: "SLD + '/' + pathname.split('/')[1]"
- },
-
- { condition: "SLD === 'twitter.com' && [ 'i', 'search' ].indexOf(pathname.split('/')[1]) !== -1",
-   consequent: null,
-   description: 'notifications'
- },
- { condition: "SLD === 'twitter.com'",
-   consequent: "SLD + '/' + pathname.split('/')[1]",
-   dom: {
-     faviconURL: {
-       nodeSelector: 'img.ProfileAvatar-image',
-       consequent: 'node.getAttribute("src")'
-     }
-   }
- },
-
- { condition: "SLD === 'tumblr.com' && [ 'www', 'assets', 'media' ].indexOf(QLD) === -1",
-   consequent: "RLD + '.' + SLD"
- },
- { condition: "SLD === 'tumblr.com' && QLD === 'www' && [ '/', '/dashboard', '/login' ].indexOf(pathName) !== -1",
-   consequent: 'SLD'
- },
- { condition: "SLD === 'tumblr.com' && QLD === 'www'",
-   consequent: "pathname.split('/')[1] + '.' + SLD"
- },
-
- { condition: "SLD === 'wordpress.com' || SLD === 'zendesk.com'",
-   consequent: "RLD + '.' + SLD"
- },
-
+/*
+ * EXPERIMENTAL: youtube channel publishers
+ */
  { condition: "SLD === 'youtube.com' && pathname.indexOf('/channel/') === 0",
    consequent: 'SLD + pathname',
    dom: {
