@@ -65,7 +65,13 @@ var rules = [
  },
 
  { condition: "SLD === 'youtube.com' && pathname.indexOf('/channel/') === 0",
-   consequent: 'SLD + pathname'
+   consequent: 'SLD + pathname',
+   dom: {
+     faviconURL: {
+       nodeSelector: 'img.channel-header-profile-image',
+       consequent: 'node.getAttribute("src")'
+     }
+   }
  },
  { condition: "SLD === 'youtube.com' && pathname === '/watch'",
    consequent: '"youtube.com/channel/" + /content="([^"]*)"/.exec(location(markup, document, "div#watch7-content.watch-main-col meta[itemprop=channelId]"))[1]',
