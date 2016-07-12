@@ -1,6 +1,6 @@
 var datax = require('data-expression')
 var Joi = require('joi')
-var jsdom = require('jsdom')
+var jsdom = require('jsdom').jsdom
 var random = require('random-lib')
 var tldjs = require('tldjs')
 var trim = require('underscore.string/trim')
@@ -25,7 +25,6 @@ var schema = Joi.array().items(Joi.object().keys(
                                       Joi.boolean().allow(true).description('only "true" makes sense')).required(),
     consequent: Joi.alternatives().try(Joi.string().description('a JavaScript string expression'),
                                       Joi.any().allow(false, null).description('or null').required()),
-    markupP: Joi.boolean().optional().description('HTML required to evaluate consequent'),
     dom: Joi.any().optional().description('DOM equivalent logic'),
     description: Joi.string().optional().description('a brief annotation')
   }
@@ -74,8 +73,6 @@ var rules = [
    }
  },
  { condition: "SLD === 'youtube.com' && pathname === '/watch'",
-   consequent: '"youtube.com/channel/" + /content="([^"]*)"/.exec(location(markup, document, "div#watch7-content.watch-main-col meta[itemprop=channelId]"))[1]',
-   markupP: true,
    dom: {
      publisher: {
        nodeSelector: "#watch7-content.watch-main-col meta[itemprop='channelId']",
@@ -107,25 +104,17 @@ var rules = [
  }
 ]
 
-var location = function (markup, document, selector) {
-  var div = jsdom.nodeLocation(document.body.querySelector(selector))
+var getPublisher = function (location, markup) {
+  var consequent, i, props, result, rule
 
-  if (div.startTag) return markup.substr(div.startTag.end, div.endTag.start - div.startTag.end)
+  if (!tldjs.isValid(location)) return
 
-  return markup.substr(div.start, div.end - div.start)
-}
-
-var getPublisher = function (path, markup) {
-  var i, props, result, rule
-
-  if (!tldjs.isValid(path)) return
-
-  props = url.parse(path, true)
+  props = url.parse(location, true)
   props.TLD = tldjs.getPublicSuffix(props.host)
   if (!props.TLD) return
 
   props = underscore.mapObject(props, function (value, key) { if (!underscore.isFunction(value)) return value })
-  props.URL = path
+  props.URL = location
   props.SLD = tldjs.getDomain(props.host)
   props.RLD = tldjs.getSubdomain(props.host)
   props.QLD = props.RLD ? underscore.last(props.RLD.split('.')) : ''
@@ -135,21 +124,19 @@ var getPublisher = function (path, markup) {
 
     if (!datax.evaluate(rule.condition, props)) continue
 
-    if (rule.markupP) {
+    if ((rule.dom) && (rule.dom.publisher)) {
       if (!markup) throw new Error('markup parameter required')
 
       if (typeof markup !== 'string') markup = markup.toString()
 
-      props.location = location
-      props.markup = markup
-      props.document = jsdom.jsdom(markup)
+      props.node = jsdom(markup).body.querySelector(rule.dom.publisher.nodeSelector)
+      consequent = rule.dom.publisher.consequent
     } else {
-      delete props.location
-      delete props.markup
-      delete props.document
+      delete props.node
+      consequent = rule.consequent
     }
 
-    result = rule.consequent ? datax.evaluate(rule.consequent, props) : rule.consequent
+    result = consequent ? datax.evaluate(consequent, props) : consequent
     if (result === '') continue
 
     if (typeof result === 'string') return trim(result, './')
@@ -193,14 +180,14 @@ var Synopsis = function (options) {
   this.options._b2 = this.options._b * this.options._b
 }
 
-Synopsis.prototype.addVisit = function (path, duration, markup) {
+Synopsis.prototype.addVisit = function (location, duration, markup) {
   var publisher
 
   if (duration < this.options.minDuration) return
 
   if (this.score(duration) <= 0) return
 
-  try { publisher = getPublisher(path, markup) } catch (ex) { return }
+  try { publisher = getPublisher(location, markup) } catch (ex) { return }
   if (!publisher) return
 
   return this.addPublisher(publisher, duration)
