@@ -247,6 +247,8 @@ Synopsis.prototype.topN = function (n) {
 
   results = []
   underscore.keys(this.publishers).forEach(function (publisher) {
+    if (this.publishers[publisher].score === 0) return
+
     results.push(underscore.extend({ publisher: publisher }, underscore.omit(this.publishers[publisher], 'window')))
   }, this)
   results = underscore.sortBy(results, function (entry) { return -entry.score })
