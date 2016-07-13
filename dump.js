@@ -44,30 +44,11 @@ keys.forEach(function (publisher) {
 console.log('\nmappings:')
 console.log(JSON.stringify(mappings, null, 2))
 
-console.log('\nsynopsis #1:')
+console.log('\ntopN:')
 console.log(JSON.stringify(synopsis.topN(), null, 2))
 
-console.log('\nwinner:')
-console.log(synopsis.winner())
-
-var hhmm = function (hh, mm) {
-  return (((hh * 60) + mm) * 60 * 1000)
-}
-
-synopsis = new Synopsis(JSON.stringify({ publishers: [
-  { publisher: 'reddit.com', visits: 311, duration: hhmm(5, 12), score: 10 },
-  { publisher: 'nytimes.com', visits: 287, duration: hhmm(4, 24), score: 9 },
-  { publisher: 'huffingtonpost.com', visits: 265, duration: hhmm(4, 11), score: 8 },
-  { publisher: 'theguardian.com', visits: 145, duration: hhmm(3, 42), score: 8 },
-  { publisher: 'engadget.com', visits: 124, duration: hhmm(2, 42), score: 8 },
-  { publisher: 'forbes.com', visits: 115, duration: hhmm(1, 42), score: 0 },
-  { publisher: 'sfgate.com', visits: 98, duration: hhmm(1, 42), score: 50 },
-  { publisher: 'bloomberg.com', visits: 95, duration: hhmm(1, 42), score: 4 },
-  { publisher: 'drudgereport.com', visits: 90, duration: hhmm(1, 42), score: 2 },
-  { publisher: 'cbsnews.com', visits: 87, duration: hhmm(1, 42), score: 1 }
-]}))
-console.log('\nsynopsis #2:')
-console.log(JSON.stringify(synopsis.topN(), null, 2))
+console.log('\nallN:')
+console.log(JSON.stringify(synopsis.allN(), null, 2))
 
 console.log('\nwinner:')
 console.log(synopsis.winner())

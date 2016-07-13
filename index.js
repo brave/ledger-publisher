@@ -140,15 +140,38 @@ var Synopsis = function (options) {
   }
 
   this.options = options || {}
+  this.options.scorekeepers = underscore.keys(Synopsis.prototype.scorekeepers)
   underscore.defaults(this.options, { minDuration: 2 * 1000, durationWeight: 1 / (30 * 1000),
                                       numFrames: 30, frameSize: 24 * 60 * 60 * 1000
                                     })
+  if (!this.options.scorekeepers[this.options.scorekeeper]) {
+    this.options.scorekeeper = underscore.first(this.options.scorekeepers)
+  }
+  this.options.emptyScores = {}
+  this.options.scorekeepers.forEach(function (scorekeeper) {
+    this.options.emptyScores[scorekeeper] = 0
+  }, this)
 
-  this.options._a = (1 / (this.options.durationWeight * 2)) - this.options.minDuration
+  underscore.defaults(this.options, { _a: (1 / (this.options.durationWeight * 2)) - this.options.minDuration })
   this.options._a2 = this.options._a * 2
   this.options._a4 = this.options._a2 * 2
-  this.options._b = this.options.minDuration - this.options._a
+  underscore.defaults(this.options, { _b: this.options.minDuration - this.options._a })
   this.options._b2 = this.options._b * this.options._b
+
+  underscore.keys(this.publishers).forEach(function (publisher) {
+    var i
+    var entry = this.publishers[publisher]
+
+    for (i = 0; i < entry.window.length; i++) {
+      if (typeof entry.window[i].scores !== 'undefined') continue
+
+      entry.window[i].scores = underscore.clone(this.options.emptyScores)
+      if (entry.window[i].score) {
+        entry.windows[i].scores.concave = entry.window[i].score
+        delete entry.window[i].score
+      }
+    }
+  }, this)
 }
 
 Synopsis.prototype.addVisit = function (location, duration, markup) {
@@ -156,69 +179,105 @@ Synopsis.prototype.addVisit = function (location, duration, markup) {
 
   if (duration < this.options.minDuration) return
 
-  if (this.score(duration) <= 0) return
-
   try { publisher = getPublisher(location, markup) } catch (ex) { return }
   if (!publisher) return
 
-  return this.addPublisher(publisher, duration)
+  return this.addPublisher(publisher, { duration: duration, markup: markup })
 }
 
 Synopsis.prototype.initPublisher = function (publisher) {
   if (this.publishers[publisher]) return
 
-  this.publishers[publisher] = { visits: 0, duration: 0, score: 0,
-                                 window: [ { timestamp: underscore.now(), visits: 0, duration: 0, score: 0 } ] }
+  this.publishers[publisher] = { visits: 0, duration: 0, scores: underscore.clone(this.options.emptyScores),
+                                 window: [ { timestamp: underscore.now(), visits: 0, duration: 0,
+                                             scores: underscore.clone(this.options.emptyScores) } ]
+                               }
 }
 
-Synopsis.prototype.addPublisher = function (publisher, duration) {
-  var score
+Synopsis.prototype.addPublisher = function (publisher, props) {
+  var scores
   var now = underscore.now()
 
-  if (duration < this.options.minDuration) return
+  if (!props) return
 
-  score = this.score(duration)
-  if (score <= 0) return
+  if (typeof props === 'number') props = { duration: props }
+  if (props.duration < this.options.minDuration) return
+
+  scores = this.scores(props)
+  if (!scores) return
 
   if (!this.publishers[publisher]) this.initPublisher(publisher)
 
   if (this.publishers[publisher].window[0].timestamp <= now - this.options.frameSize) {
     this.publishers[publisher].window =
-      [{ timestamp: now, visits: 0, duration: 0, score: 0 }].concat(this.publishers[publisher].window)
+      [ { timestamp: now, visits: 0, duration: 0,
+          scores: underscore.clone(this.options.emptyScores) }].concat(this.publishers[publisher].window)
   }
 
   this.publishers[publisher].window[0].visits++
-  this.publishers[publisher].window[0].duration += duration
-  this.publishers[publisher].window[0].score += score
+  this.publishers[publisher].window[0].duration += props.duration
+  underscore.keys(scores).forEach(function (scorekeeper) {
+    if (!this.publishers[publisher].window[0].scores[scorekeeper]) this.publishers[publisher].window[0].scores[scorekeeper] = 0
+    this.publishers[publisher].window[0].scores[scorekeeper] += scores[scorekeeper]
+  }, this)
 
   this.publishers[publisher].visits++
-  this.publishers[publisher].duration += duration
-  this.publishers[publisher].score += score
+  this.publishers[publisher].duration += props.duration
+  underscore.keys(scores).forEach(function (scorekeeper) {
+    if (!this.publishers[publisher].scores[scorekeeper]) this.publishers[publisher].scores[scorekeeper] = 0
+    this.publishers[publisher].scores[scorekeeper] += scores[scorekeeper]
+  }, this)
 
   return publisher
 }
 
 Synopsis.prototype.topN = function (n) {
+  return this._topN(n, this.options.scorekeeper)
+}
+
+Synopsis.prototype.allN = function (n) {
+  var results = []
+  var weights = {}
+
+  underscore.keys(Synopsis.prototype.scorekeepers).forEach(function (scorekeeper) {
+    this._topN(n, scorekeeper).forEach(function (entry) {
+      if (!weights[entry.publisher]) weights[entry.publisher] = underscore.clone(this.options.emptyScores)
+      weights[entry.publisher][scorekeeper] = entry.weight
+    }, this)
+  }, this)
+
+  underscore.keys(weights).forEach(function (publisher) {
+    results.push(underscore.extend({ weights: weights[publisher] },
+                                   underscore.pick(this.publishers[publisher], [ 'scores', 'visits', 'duration', 'window' ])))
+  }, this)
+
+  return results
+}
+
+Synopsis.prototype._topN = function (n, scorekeeper) {
   var i, results, total
 
   this.prune()
 
   results = []
   underscore.keys(this.publishers).forEach(function (publisher) {
-    if (this.publishers[publisher].score === 0) return
+    if (!this.publishers[publisher].scores[scorekeeper]) return
 
     results.push(underscore.extend({ publisher: publisher }, underscore.omit(this.publishers[publisher], 'window')))
   }, this)
-  results = underscore.sortBy(results, function (entry) { return -entry.score })
+  results = underscore.sortBy(results, function (entry) { return -entry.scores[scorekeeper] })
 
   if ((n > 0) && (results.length > n)) results = results.slice(0, n)
   n = results.length
 
   total = 0
-  for (i = 0; i < n; i++) { total += results[i].score }
+  for (i = 0; i < n; i++) { total += results[i].scores[scorekeeper] }
   if (total === 0) return
 
-  for (i = 0; i < n; i++) results[i] = { publisher: results[i].publisher, weight: results[i].score / total }
+  for (i = 0; i < n; i++) {
+    results[i] = { publisher: results[i].publisher, weight: results[i].scores[scorekeeper] / total }
+  }
+
   return results
 }
 
@@ -240,9 +299,29 @@ Synopsis.prototype.toJSON = function () {
   return { options: this.options, publishers: this.publishers }
 }
 
+Synopsis.prototype.scores = function (props) {
+  var emptyP = true
+  var result = {}
+
+  underscore.keys(Synopsis.prototype.scorekeepers).forEach(function (scorekeeper) {
+    var score = Synopsis.prototype.scorekeepers[scorekeeper].bind(this)(props)
+
+    result[scorekeeper] = score > 0 ? score : 0
+    if (score > 0) emptyP = false
+  }, this)
+
+  if (!emptyP) return result
+}
+
+Synopsis.prototype.scorekeepers = {}
+
 // courtesy of @dimitry-xyz: https://github.com/brave/ledger/issues/2#issuecomment-221752002
-Synopsis.prototype.score = function (duration) {
-  return (((-this.options._b) + Math.sqrt(this.options._b2 + (this.options._a4 * duration))) / this.options._a2)
+Synopsis.prototype.scorekeepers['concave'] = function (props) {
+  return (((-this.options._b) + Math.sqrt(this.options._b2 + (this.options._a4 * props.duration))) / this.options._a2)
+}
+
+Synopsis.prototype.scorekeepers['visits'] = function (props) {
+  return 1
 }
 
 Synopsis.prototype.prune = function () {
@@ -253,12 +332,12 @@ Synopsis.prototype.prune = function () {
     var i
     var duration = 0
     var entry = this.publishers[publisher]
-    var score = 0
+    var scores = {}
     var visits = 0
 
     // NB: in case of user editing...
     if (!entry.window) {
-      entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, score: entry.score } ]
+      entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, scores: entry.scores } ]
       return
     }
 
@@ -267,13 +346,16 @@ Synopsis.prototype.prune = function () {
 
       visits += entry.window[i].visits
       duration += entry.window[i].duration
-      score += entry.window[i].score
+      underscore.keys(entry.window[i].scores).forEach(function (scorekeeper) {
+        if (!scores[scorekeeper]) scores[scorekeeper] = 0
+        scores[scorekeeper] += entry.window[i].scores[scorekeeper]
+      }, this)
     }
 
     if (i < entry.window.length) {
       entry.visits = visits
       entry.duration = duration
-      entry.score = score
+      entry.scores = scores
       entry.window = entry.window.slice(0, i)
     }
   }, this)

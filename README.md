@@ -14,25 +14,7 @@ A _publisher identity_ is derived from a URL and is intended to correspond to th
 Note that because some domains host multiple publishers,
 a publisher identity may contain both a _domain_ and a _path_ separated by a solidus(`/`).
 
-For many reasons,
-there may be a one-to-many relationship between a real-world publisher and a publisher identity.
-In particular,
-owing to numerous ad-hoc naming conventions on the Web,
-these two publisher identities:
-
-    medium.com/USER
-    medium.com/@USER
-
-refer to the same publisher,
-but only if these URLs:
-
-    https://medium.com/USER
-    https://medium.com/@USER
-
-are both provisioned.
-
-Finally,
-certain URLs aren't really appropriate for a publisher mapping.
+Also note that certain URLs aren't really appropriate for a publisher mapping.
 For example,
 if a URL returns a 302,
 don't bother mapping that URL.
@@ -89,11 +71,13 @@ Note that a publisher identity must not include either a fragment (`#...`) or a 
 ### Mapping
 The package uses a rule set expressed as a [JavaScript](https://en.wikipedia.org/wiki/JavaScript) array.
 
-Each rule in the array consists of an object with two mandatory properties:
-
-* `condition` - a JavaScript boolean expression
-
-* `consequent` - a JavaScript expression returning either a string, `null`, or `undefined`
+Each rule in the array consists of an object with one mandatory property,
+`condition`,
+a JavaScript boolean expression.
+In addition,
+there is usually either a `consequent` property
+(a JavaScript expression returning either a string, `null`, or `undefined`),
+or a `dom` property.
 
 To detetermine the publisher identity associated with a URL:
 
@@ -105,17 +89,11 @@ then the publisher identity is `undefined`.
 3. The parsed object is extended with the `URL`, `TLD`, `SLD`, `RLD`, and `QLD` objects.
 If there is no `RLD`, the empty string (`""`) is used for both the `RLD` and `QLD`.
 
-4. If the `markupP` property of the rule is present and is `true`,
+4. If the `dom.publisher` property of the rule is present,
 then the HTML associated with the URL must be present,
-and three additional objects are present during evaluation:
-
-    * `markup` - the markup expressed as a JavaScript string
-
-    * `document` - the corresponding [DOM](https://en.wikipedia.org/wiki/Document_Object_Model) object,
-as created by the [jsdom.jsdom](https://github.com/tmpvar/jsdom) method
-
-    * `location` - a `function` with parameters `(markup, document, selector)` that returns a substring from the `markup` by
-applying the `selector` to the `document`
+and one additional object is present during evaluation,
+`node`, which is the result of `jsdom(markup).body.querySelector(dom.publisher.nodeSelector)`,
+and the `dom.publisher.consequent` property is used instead of the `consequent` property for the rule in Step 5.2.
 
 5. Each rule is examined, in order, starting from the first element:
 
@@ -147,7 +125,7 @@ Please submit a [pull request](https://github.com/brave/ledger-publisher/pulls) 
 If you are running the [Brave Browser](https://brave.com/downloads.html) on your desktop,
 you can run
 
-    % node test.js
+    % node dump.js
 
 in order to examine all the URLs you have visited in your current session (from the file `session-store-1`)
 and see the resulting publisher identities.
@@ -160,18 +138,25 @@ The synopsis includes a rolling window so that older visits are removed.
 
     var synopsis = new (require('ledger-publisher').Synopsis)()
 
-
     // each time a page is unloaded, record the focus duration
     // markup is an optional third-parameter, cf., getPublisher above
-
         synopsis.addVisit('URL', duration)
+
+    // addVisit is a wrapper around addPublisher
+        synopsis.addPublisher(publisher, props)
+
+At present,
+these properties are examined:
+
+* `duration` - the number of milli-seconds (mandatory)
+
+* `markup` - the HTML markup (optional)
 
 In order to calculate the score,
 options can be provided when creating the object.
 The defaults are:
 
-    { minDuration    : 2 * 1000
-    , durationWeight : 1 / (30 * 1000)
+    { minDuration    : 10 * 1000
     , numFrames      : 30
     , frameSize      : 24 * 60 * 60 * 1000
     }
@@ -179,14 +164,27 @@ The defaults are:
 When `addVisit` is invoked,
 the duration must be at least `minDuration` milliseconds in length.
 If so,
-the score for the visit is calculated as:
+then one or more "scorekeepers" are run to calculate the score for the visit,
+using both the `options` and `props`.
+At present,
+there are two scorekeepers:
 
-    visitWeight + (duration * durationWeight)
+* `concave` - courtesy of [@dimitry-xyz](https://github.com/brave/ledger/issues/2#issuecomment-221752002)
 
-So, 
-a page view with a minute long focus will result in a score of `3`.
-If the score is negative,
-then it is not recorded.
+* `visits` - the total number of visits
+
+Scorekeepers may be "tuned" using options,
+at present,
+only the `concave` scorekeeper makes use of these.
+The defaults are:
+
+    { durationWeight : 1 / (30 * 1000)                          //        0.0000333...
+    , _a             : (1 / (durationWeight * 2)) - minDuration //     5000
+    , _a2            : _a * 2                                   //    10000
+    , _a4            : _a * 4                                   //    20000
+    , _b             : minDuration - _a                         //     5000
+    , _b2            : _b * _b                                  // 25000000
+    }
 
 The sliding window consist of `numFrames` frames,
 each having a timeframe of `frameSize` milliseconds.
