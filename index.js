@@ -141,8 +141,8 @@ var Synopsis = function (options) {
 
   this.options = options || {}
   this.options.scorekeepers = underscore.keys(Synopsis.prototype.scorekeepers)
-  underscore.defaults(this.options, { minDuration: 2 * 1000, durationWeight: 1 / (30 * 1000),
-                                      numFrames: 30, frameSize: 24 * 60 * 60 * 1000
+  underscore.defaults(this.options, { minDuration: 2 * 1000, numFrames: 30, frameSize: 24 * 60 * 60 * 1000,
+                                      _d: 1 / (30 * 1000)
                                     })
   if (!this.options.scorekeepers[this.options.scorekeeper]) {
     this.options.scorekeeper = underscore.first(this.options.scorekeepers)
@@ -152,7 +152,7 @@ var Synopsis = function (options) {
     this.options.emptyScores[scorekeeper] = 0
   }, this)
 
-  underscore.defaults(this.options, { _a: (1 / (this.options.durationWeight * 2)) - this.options.minDuration })
+  underscore.defaults(this.options, { _a: (1 / (this.options._d * 2)) - this.options.minDuration })
   this.options._a2 = this.options._a * 2
   this.options._a4 = this.options._a2 * 2
   underscore.defaults(this.options, { _b: this.options.minDuration - this.options._a })
@@ -162,12 +162,22 @@ var Synopsis = function (options) {
     var i
     var entry = this.publishers[publisher]
 
+// NB: legacy support
+    if (typeof entry.scores === 'undefined') {
+      entry.scores = underscore.clone(this.options.emptyScores)
+      if (entry.score) {
+        entry.scores.concave = entry.score
+        entry.scores.visits = entry.visits
+        delete entry.score
+      }
+    }
     for (i = 0; i < entry.window.length; i++) {
       if (typeof entry.window[i].scores !== 'undefined') continue
 
       entry.window[i].scores = underscore.clone(this.options.emptyScores)
       if (entry.window[i].score) {
-        entry.windows[i].scores.concave = entry.window[i].score
+        entry.window[i].scores.concave = entry.window[i].score
+        entry.window[i].scores.visits = entry.window[i].visits
         delete entry.window[i].score
       }
     }
@@ -240,7 +250,7 @@ Synopsis.prototype.allN = function (n) {
   var weights = {}
 
   underscore.keys(Synopsis.prototype.scorekeepers).forEach(function (scorekeeper) {
-    this._topN(n, scorekeeper).forEach(function (entry) {
+    (this._topN(n, scorekeeper) || []).forEach(function (entry) {
       if (!weights[entry.publisher]) weights[entry.publisher] = underscore.clone(this.options.emptyScores)
       weights[entry.publisher][scorekeeper] = entry.weight
     }, this)

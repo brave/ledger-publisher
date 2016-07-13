@@ -178,12 +178,9 @@ at present,
 only the `concave` scorekeeper makes use of these.
 The defaults are:
 
-    { durationWeight : 1 / (30 * 1000)                          //        0.0000333...
-    , _a             : (1 / (durationWeight * 2)) - minDuration //     5000
-    , _a2            : _a * 2                                   //    10000
-    , _a4            : _a * 4                                   //    20000
-    , _b             : minDuration - _a                         //     5000
-    , _b2            : _b * _b                                  // 25000000
+    { _d : 1 / (30 * 1000)              //    0.0000333...
+    , _a : (1 / (_d * 2)) - minDuration // 5000
+    , _b : minDuration - _a             // 5000
     }
 
 The sliding window consist of `numFrames` frames,
