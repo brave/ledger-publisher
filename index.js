@@ -60,7 +60,7 @@ var rules = [
    consequent: null,
    description: 'search engines'
  },
- { condition: "[ 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
+ { condition: "[ 'ssl-images-amazon', 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
    consequent: null,
    description: 'image stores'
  },
