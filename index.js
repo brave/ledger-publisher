@@ -64,6 +64,10 @@ var rules = [
    consequent: null,
    description: 'image stores'
  },
+ { condition: "[ 'messenger', 'whatsapp' ].indexOf(SLD.split('.')[0]) !== -1",
+   consequent: null,
+   description: 'messaging applications'
+ },
  { condition: "[ 'campaign-archive1', 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
    consequent: null,
    description: 'campaign engines'
