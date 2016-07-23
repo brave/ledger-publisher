@@ -31,52 +31,32 @@ var schema = Joi.array().items(Joi.object().keys(
 ))
 
 var rules = [
-/*
- * EXPERIMENTAL: youtube channel publishers
- */
- { condition: "SLD === 'youtube.com' && pathname.indexOf('/channel/') === 0",
-   consequent: 'SLD + pathname',
-   dom: {
-     faviconURL: {
-       nodeSelector: 'img.channel-header-profile-image',
-       consequent: 'node.getAttribute("src")'
-     }
-   }
- },
- { condition: "SLD === 'youtube.com' && pathname === '/watch'",
-   dom: {
-     publisher: {
-       nodeSelector: "#watch7-content.watch-main-col meta[itemprop='channelId']",
-       consequent: '"youtube.com/channel/" + node.getAttribute("content")'
-     },
-     faviconURL: {
-       nodeSelector: '#watch7-user-header.spf-link img',
-       consequent: 'node.getAttribute("data-thumb")'
-     }
-   }
- },
+  { condition: "[ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ].indexOf(SLD.split('.')[0]) !== -1",
+    consequent: null,
+    description: 'search engines'
+  },
+  { condition: "[ 'ssl-images-amazon', 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
+    consequent: null,
+    description: 'image stores'
+  },
+  {
+    condition: "[ 'facebook', 'github', 'livejournal', 'twitter' ].indexOf(SLD.split('.')[0]) !== -1",
+    consequent: null,
+    description: 'platform sites'
+  },
+  { condition: "[ 'messenger', 'whatsapp' ].indexOf(SLD.split('.')[0]) !== -1",
+    consequent: null,
+    description: 'messaging applications'
+  },
+  { condition: "[ 'campaign-archive1', 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
+    consequent: null,
+    description: 'campaign engines'
+  },
 
- { condition: "[ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ].indexOf(SLD.split('.')[0]) !== -1",
-   consequent: null,
-   description: 'search engines'
- },
- { condition: "[ 'ssl-images-amazon', 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
-   consequent: null,
-   description: 'image stores'
- },
- { condition: "[ 'messenger', 'whatsapp' ].indexOf(SLD.split('.')[0]) !== -1",
-   consequent: null,
-   description: 'messaging applications'
- },
- { condition: "[ 'campaign-archive1', 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
-   consequent: null,
-   description: 'campaign engines'
- },
-
- { condition: true,
-   consequent: 'SLD',
-   description: 'the default rule'
- }
+  { condition: true,
+    consequent: 'SLD',
+    description: 'the default rule'
+  }
 ]
 
 var getPublisher = function (location, markup) {
