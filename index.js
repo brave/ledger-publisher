@@ -20,7 +20,7 @@ var url = require('url')
     TLD = 'co.jp'
  */
 
-var schema = Joi.array().items(Joi.object().keys(
+var schema = Joi.array().min(1).items(Joi.object().keys(
   { condition: Joi.alternatives().try(Joi.string().description('a JavaScript boolean expression'),
                                       Joi.boolean().allow(true).description('only "true" makes sense')).required(),
     consequent: Joi.alternatives().try(Joi.string().description('a JavaScript string expression'),
