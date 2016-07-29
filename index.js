@@ -35,7 +35,7 @@ var rules = [
     consequent: null,
     description: 'search engines'
   },
-  { condition: "[ 'ssl-images-amazon', 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "[ 'githubusercontent', 'ssl-images-amazon', 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
     consequent: null,
     description: 'image stores'
   },
@@ -362,3 +362,6 @@ module.exports = {
   schema: schema,
   Synopsis: Synopsis
 }
+
+var validity = Joi.validate(rules, schema)
+if (validity.error) throw new Error(validity.error)
