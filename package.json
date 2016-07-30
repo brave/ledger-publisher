@@ -1,10 +1,11 @@
 {
   "name": "ledger-publisher",
-  "version": "0.8.36",
+  "version": "0.8.37",
   "description": "Routines to identify publishers for the Brave ledger.",
   "main": "index.js",
   "scripts": {
     "dump": "node dump.js",
+    "dump2": "node dump2.js",
     "lint": "gulp lint",
     "test": "npm run test-security",
     "test-security": "nsp check"

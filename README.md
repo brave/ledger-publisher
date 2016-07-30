@@ -211,7 +211,9 @@ using the weighted score:
 
     // e.g., "brave.com"
 
-A optional parameter may be supplied to the `winner` method
+    // or multiple winners
+
+       console.log(synopsis.winners(n))
 
 ## Acknowledgements
 Many thanks to [Elijah Insua](https://github.com/tmpvar) for the excellent [jsdom](https://github.com/tmpvar/jsdom) package,

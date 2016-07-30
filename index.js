@@ -68,7 +68,7 @@ var getPublisher = function (location, markup) {
   props.TLD = tldjs.getPublicSuffix(props.host)
   if (!props.TLD) return
 
-  props = underscore.mapObject(props, function (value, key) { if (!underscore.isFunction(value)) return value })
+  props = underscore.mapObject(props, function (value /* , key */) { if (!underscore.isFunction(value)) return value })
   props.URL = location
   props.SLD = tldjs.getDomain(props.host)
   props.RLD = tldjs.getSubdomain(props.host)
@@ -275,16 +275,35 @@ Synopsis.prototype._topN = function (n, scorekeeper) {
   return results
 }
 
-Synopsis.prototype.winner = function (n) {
-  var i, upper
-  var point = random.randomFloat()
-  var results = this.topN(n)
+Synopsis.prototype.winner = function () {
+  var result = this.winners()
 
-  upper = 0
-  for (i = 0; i < results.length; i++) {
-    upper += results[i].weight
-    if (upper >= point) return results[i].publisher
-  }
+  return (result ? result[0] : result)
+}
+
+Synopsis.prototype.winners = function (n) {
+  var i, point, upper, winners
+  var results = this.topN()
+
+  if (!results) return
+
+  winners = []
+
+  if ((typeof n !== 'number') || (n < 1)) n = 1
+  underscore.times(n, () => {
+    point = random.randomFloat()
+    upper = 0
+
+    for (i = 0; i < results.length; i++) {
+      upper += results[i].weight
+      if (upper < point) continue
+
+      winners.push(results[i].publisher)
+      break
+    }
+  })
+
+  return winners
 }
 
 Synopsis.prototype.toJSON = function () {
@@ -310,11 +329,11 @@ Synopsis.prototype.scores = function (props) {
 Synopsis.prototype.scorekeepers = {}
 
 // courtesy of @dimitry-xyz: https://github.com/brave/ledger/issues/2#issuecomment-221752002
-Synopsis.prototype.scorekeepers['concave'] = function (props) {
+Synopsis.prototype.scorekeepers.concave = function (props) {
   return (((-this.options._b) + Math.sqrt(this.options._b2 + (this.options._a4 * props.duration))) / this.options._a2)
 }
 
-Synopsis.prototype.scorekeepers['visits'] = function (props) {
+Synopsis.prototype.scorekeepers.visits = function (/* props */) {
   return 1
 }
 

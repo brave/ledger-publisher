@@ -50,5 +50,4 @@ console.log(JSON.stringify(synopsis.topN(), null, 2))
 console.log('\nallN:')
 console.log(JSON.stringify(synopsis.allN(), null, 2))
 
-console.log('\nwinner:')
-console.log(synopsis.winner())
+console.log('\nwinner: ' + synopsis.winner())
