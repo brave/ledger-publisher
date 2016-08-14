@@ -39,8 +39,7 @@ var rules = [
     consequent: null,
     description: 'image stores'
   },
-  {
-    condition: "[ 'facebook', 'github', 'livejournal', 'twitter' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "[ 'facebook', 'github', 'livejournal', 'slack', 'twitter' ].indexOf(SLD.split('.')[0]) !== -1",
     consequent: null,
     description: 'platform sites'
   },
@@ -51,6 +50,11 @@ var rules = [
   { condition: "[ 'campaign-archive1', 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
     consequent: null,
     description: 'campaign engines'
+  },
+
+  { condition: "TLD === 'gov' || /^go.[a-z][a-z]$/.test(TLD) || /^gov.[a-z][a-z]$/.test(TLD)",
+    consequent: null,
+    description: 'government sites'
   },
 
   { condition: true,
