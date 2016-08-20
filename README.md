@@ -173,6 +173,18 @@ there are two scorekeepers:
 
 * `visits` - the total number of visits
 
+> #### The Concave Scorekeeper
+> The concave scorekeeper rewards the publisher of a page according to:
+>
+> 1. a fixed bonus for the page hit
+> 2. how much time the user spends on the page
+>
+> The reward increases as the user spends more time on the page, but the model uses a
+> concave quadratic (utility) function to provide diminishing returns as the time spent
+> on the page increases. If we set the `durationWeight` parameter to zero, the model 
+> only takes into account the page hit and ignores the time spent on the page when 
+> calculating the reward.
+
 Scorekeepers may be "tuned" using options,
 at present,
 only the `concave` scorekeeper makes use of these.
