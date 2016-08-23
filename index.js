@@ -47,6 +47,11 @@ var rules = [
     consequent: null,
     description: 'messaging applications'
   },
+  // sometimes these don't immediately 302..
+  { condition: "[ 't.co' ].indexOf(SLD) !== -1",
+    consequent: null,
+    description: 'redirection points'
+  },
   { condition: "[ 'campaign-archive1', 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
     consequent: null,
     description: 'campaign engines'
