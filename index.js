@@ -129,7 +129,7 @@ var Synopsis = function (options) {
 
   this.options = options || {}
   this.options.scorekeepers = underscore.keys(Synopsis.prototype.scorekeepers)
-  underscore.defaults(this.options, { minDuration: 2 * 1000, numFrames: 30, frameSize: 24 * 60 * 60 * 1000,
+  underscore.defaults(this.options, { minDuration: 8 * 1000, numFrames: 30, frameSize: 24 * 60 * 60 * 1000,
                                       _d: 1 / (30 * 1000)
                                     })
   if (!this.options.scorekeepers[this.options.scorekeeper]) {
