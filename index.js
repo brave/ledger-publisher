@@ -69,19 +69,10 @@ var rules = [
 ]
 
 var getPublisher = function (location, markup) {
-  var consequent, i, props, result, rule
+  var consequent, i, result, rule
+  var props = getPublisherProps(location)
 
-  if (!tldjs.isValid(location)) return
-
-  props = url.parse(location, true)
-  props.TLD = tldjs.getPublicSuffix(props.host)
-  if (!props.TLD) return
-
-  props = underscore.mapObject(props, function (value /* , key */) { if (!underscore.isFunction(value)) return value })
-  props.URL = location
-  props.SLD = tldjs.getDomain(props.host)
-  props.RLD = tldjs.getSubdomain(props.host)
-  props.QLD = props.RLD ? underscore.last(props.RLD.split('.')) : ''
+  if (!props) return
 
   for (i = 0; i < rules.length; i++) {
     rule = rules[i]
@@ -108,6 +99,24 @@ var getPublisher = function (location, markup) {
     // map null/false to undefined
     return
   }
+}
+
+var getPublisherProps = function (location) {
+  var props
+
+  if (!tldjs.isValid(location)) return
+
+  props = url.parse(location, true)
+  props.TLD = tldjs.getPublicSuffix(props.host)
+  if (!props.TLD) return
+
+  props = underscore.mapObject(props, function (value /* , key */) { if (!underscore.isFunction(value)) return value })
+  props.URL = location
+  props.SLD = tldjs.getDomain(props.host)
+  props.RLD = tldjs.getSubdomain(props.host)
+  props.QLD = props.RLD ? underscore.last(props.RLD.split('.')) : ''
+
+  return props
 }
 
 var isPublisher = function (publisher) {
@@ -385,6 +394,7 @@ Synopsis.prototype.prune = function () {
 
 module.exports = {
   getPublisher: getPublisher,
+  getPublisherProps: getPublisherProps,
   isPublisher: isPublisher,
   rules: rules,
   schema: schema,
