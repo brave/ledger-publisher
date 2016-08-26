@@ -39,6 +39,10 @@ var rules = [
     consequent: null,
     description: 'image stores'
   },
+  { condition: "[ 'github.io', 'githubusercontent.com' ].indexOf(TLD) !== -1",
+    consequent: null,
+    description: 'content stores'
+  },
   { condition: "[ 'facebook', 'github', 'livejournal', 'slack', 'twitter' ].indexOf(SLD.split('.')[0]) !== -1",
     consequent: null,
     description: 'platform sites'
