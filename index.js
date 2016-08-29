@@ -43,7 +43,7 @@ var rules = [
     consequent: null,
     description: 'content stores'
   },
-  { condition: "[ 'facebook', 'github', 'livejournal', 'slack', 'twitter' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "[ 'facebook', 'github', 'livejournal', 'slack', 'twitter', 'wikipedia' ].indexOf(SLD.split('.')[0]) !== -1",
     consequent: null,
     description: 'platform sites'
   },
