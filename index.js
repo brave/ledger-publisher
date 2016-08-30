@@ -31,32 +31,32 @@ var schema = Joi.array().min(1).items(Joi.object().keys(
 ))
 
 var rules = [
-  { condition: "[ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "(new Set([ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'search engines'
   },
-  { condition: "[ 'githubusercontent', 'ssl-images-amazon', 'twimg', 'ytimg' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "(new Set([ 'githubusercontent', 'ssl-images-amazon', 'twimg', 'ytimg' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'image stores'
   },
-  { condition: "[ 'github.io', 'githubusercontent.com' ].indexOf(TLD) !== -1",
+  { condition: "(new Set([ 'github.io', 'githubusercontent.com' ])).has(TLD)",
     consequent: null,
     description: 'content stores'
   },
-  { condition: "[ 'facebook', 'github', 'livejournal', 'slack', 'twitter', 'wikipedia' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'platform sites'
   },
-  { condition: "[ 'messenger', 'whatsapp' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "(new Set([ 'messenger', 'whatsapp' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'messaging applications'
   },
   // sometimes these don't immediately 302..
-  { condition: "[ 't.co' ].indexOf(SLD) !== -1",
+  { condition: "(new Set([ 't.co' ])).has(SLD)",
     consequent: null,
     description: 'redirection points'
   },
-  { condition: "[ 'campaign-archive1', 'campaign-archive2' ].indexOf(SLD.split('.')[0]) !== -1",
+  { condition: "/^campaign-archive[0-9]+\.com$/.test(SLD)",
     consequent: null,
     description: 'campaign engines'
   },
