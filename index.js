@@ -145,8 +145,15 @@ var Synopsis = function (options) {
   this.publishers = {}
   if ((typeof options === 'string') || (Buffer.isBuffer(options))) {
     p = JSON.parse(options)
+  } else if (typeof options === 'object') {
+    p = options
+  }
 
+  if (p && p.options) {
     options = p.options
+  }
+
+  if (p && p.publishers) {
     this.publishers = p.publishers
   }
 
