@@ -56,7 +56,7 @@ var rules = [
     consequent: null,
     description: 'redirection points'
   },
-  { condition: "/^campaign-archive[0-9]+\.com$/.test(SLD)",
+  { condition: '/^campaign-archive[0-9]+\.com$/.test(SLD)',
     consequent: null,
     description: 'campaign engines'
   },
