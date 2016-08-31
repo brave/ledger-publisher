@@ -207,8 +207,6 @@ Synopsis.prototype.addVisit = function (location, duration, markup) {
 }
 
 Synopsis.prototype.initPublisher = function (publisher) {
-  if (this.publishers[publisher]) return
-
   this.publishers[publisher] = { visits: 0, duration: 0, scores: underscore.clone(this.options.emptyScores),
                                  window: [ { timestamp: underscore.now(), visits: 0, duration: 0,
                                              scores: underscore.clone(this.options.emptyScores) } ]
@@ -227,7 +225,7 @@ Synopsis.prototype.addPublisher = function (publisher, props) {
   scores = this.scores(props)
   if (!scores) return
 
-  if (!this.publishers[publisher]) this.initPublisher(publisher)
+  if ((!this.publishers[publisher]) || (!this.publishers[publisher].window.length)) this.initPublisher(publisher)
 
   if (this.publishers[publisher].window[0].timestamp <= now - this.options.frameSize) {
     this.publishers[publisher].window =
@@ -376,7 +374,7 @@ Synopsis.prototype.prune = function () {
     var visits = 0
 
     // NB: in case of user editing...
-    if (!entry.window) {
+    if ((!entry.window) || (!entry.window.length)) {
       entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, scores: entry.scores } ]
       return
     }
@@ -390,6 +388,11 @@ Synopsis.prototype.prune = function () {
         if (!scores[scorekeeper]) scores[scorekeeper] = 0
         scores[scorekeeper] += entry.window[i].scores[scorekeeper]
       }, this)
+    }
+
+    if (visits === 0) {
+      delete this.publishers[publisher]
+      return
     }
 
     if (i < entry.window.length) {
