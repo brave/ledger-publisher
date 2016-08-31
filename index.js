@@ -33,42 +33,42 @@ var schema = Joi.array().min(1).items(Joi.object().keys(
 var rules = [
   { condition: "(new Set([ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ])).has(SLD.split('.')[0])",
     consequent: null,
-    description: 'search engines'
+    description: 'exclude search engines'
   },
   { condition: "(new Set([ 'githubusercontent', 'ssl-images-amazon', 'twimg', 'ytimg' ])).has(SLD.split('.')[0])",
     consequent: null,
-    description: 'image stores'
+    description: 'exclude image stores'
   },
   { condition: "(new Set([ 'github.io', 'githubusercontent.com' ])).has(TLD)",
     consequent: null,
-    description: 'content stores'
+    description: 'exclude content stores'
   },
   { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
     consequent: null,
-    description: 'platform sites'
+    description: 'exclude platform sites'
   },
   { condition: "(new Set([ 'messenger', 'whatsapp' ])).has(SLD.split('.')[0])",
     consequent: null,
-    description: 'messaging applications'
+    description: 'exclude messaging applications'
   },
   // sometimes these don't immediately 302..
   { condition: "(new Set([ 't.co' ])).has(SLD)",
     consequent: null,
-    description: 'redirection points'
+    description: 'exclude redirection points'
   },
   { condition: '/^campaign-archive[0-9]+\.com$/.test(SLD)',
     consequent: null,
-    description: 'campaign engines'
+    description: 'exclude campaign engines'
   },
 
-  { condition: "(new Set([ 'youtube.com', 'amazon.com', 'qq.com', 'live.com', 'taobao.com', 'sina.com.cn', 'linkedin.com', 'instagram.com', 'weibo.com', 'msn.com', 'vk.com', 'hao123.com', 'reddit.com', 'ebay.com', 'pinterest.com', 'tmall.com', 'amazon.co.jp', 'mail.ru', '360.cn', 'netflix.com', 'sohu.com', 'gmw.cn', 'onclickads.net', 'microsoft.com', 'paypal.com', 'chinadaily.com.cn', 'wordpress.com', 'tumblr.com', 'blogspot.com', 'imgur.com', 'naver.com', 'stackoverflow.com', 'apple.com', 'aliexpress.com', 'xvideos.com', 'imdb.com', 'pornhub.com', '163.com', 'fc2.com', 'jd.com', 'ok.ru', 'youth.cn', 'amazon.in', 'xhamster.com', 'blogger.com', 'office.com', 'craigslist.org', 'amazon.de', 'rakuten.co.jp', 'nicovideo.jp', 'booking.com', 'soso.com', 'pixnet.net', 'dropbox.com', 'bilibili.com', 'alibaba.com', 'bongacams.com', 'youku.com', 'diply.com', 'googleusercontent.com', 'amazon.co.uk', 'cnn.com', 'outbrain.com', 'alipay.com', 'popads.net', 'microsoftonline.com', 'xinhuanet.com', 'quora.com', 'coccoc.com', 'chase.com', 'docusign.net' ])).has(SLD)",
+  { condition: "(new Set([ 'youtube.com', 'amazon.com', 'live.com', 'taobao.com', 'linkedin.com', 'instagram.com', 'vk.com', 'ebay.com', 'pinterest.com', 'tmall.com', 'amazon.co.jp', 'mail.ru', '360.cn', 'netflix.com', 'sohu.com', 'onclickads.net', 'microsoft.com', 'paypal.com', 'wordpress.com', 'tumblr.com', 'blogspot.com', 'imgur.com', 'naver.com', 'stackoverflow.com', 'apple.com', 'aliexpress.com', 'xvideos.com', 'imdb.com', '163.com', 'fc2.com', 'jd.com', 'ok.ru', 'amazon.in', 'blogger.com', 'office.com', 'craigslist.org', 'amazon.de', 'rakuten.co.jp', 'nicovideo.jp', 'booking.com', 'soso.com', 'pixnet.net', 'dropbox.com', 'bilibili.com', 'alibaba.com', 'youku.com', 'diply.com', 'googleusercontent.com', 'amazon.co.uk', 'outbrain.com', 'alipay.com', 'popads.net', 'microsoftonline.com', 'quora.com', 'coccoc.com', 'chase.com', 'docusign.net' ])).has(SLD)",
     consequent: null,
-    description: 'Alexa top 100 (excluding entries in earlier rules)'
+    description: 'excluded Alexa top 100 (some entries in earlier rules)'
   },
 
   { condition: "TLD === 'gov' || /^go.[a-z][a-z]$/.test(TLD) || /^gov.[a-z][a-z]$/.test(TLD)",
     consequent: null,
-    description: 'government sites'
+    description: 'exclude all government sites'
   },
 
   { condition: true,
