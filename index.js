@@ -206,7 +206,17 @@ Synopsis.prototype.addVisit = function (location, duration, markup) {
   return this.addPublisher(publisher, { duration: duration, markup: markup })
 }
 
-Synopsis.prototype.initPublisher = function (publisher) {
+Synopsis.prototype.initPublisher = function (publisher, now) {
+  var entry = this.publishers[publisher]
+
+  if (entry) {
+    if ((!entry.window) || (!entry.window.length)) {
+      entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, scores: entry.scores } ]
+    }
+
+    return
+  }
+
   this.publishers[publisher] = { visits: 0, duration: 0, scores: underscore.clone(this.options.emptyScores),
                                  window: [ { timestamp: underscore.now(), visits: 0, duration: 0,
                                              scores: underscore.clone(this.options.emptyScores) } ]
@@ -214,7 +224,7 @@ Synopsis.prototype.initPublisher = function (publisher) {
 }
 
 Synopsis.prototype.addPublisher = function (publisher, props) {
-  var scores
+  var entry, scores
   var now = underscore.now()
 
   if (!props) return
@@ -225,26 +235,26 @@ Synopsis.prototype.addPublisher = function (publisher, props) {
   scores = this.scores(props)
   if (!scores) return
 
-  if ((!this.publishers[publisher]) || (!this.publishers[publisher].window.length)) this.initPublisher(publisher)
+  this.initPublisher(publisher, now)
+  entry = this.publishers[publisher]
 
-  if (this.publishers[publisher].window[0].timestamp <= now - this.options.frameSize) {
-    this.publishers[publisher].window =
-      [ { timestamp: now, visits: 0, duration: 0,
-          scores: underscore.clone(this.options.emptyScores) }].concat(this.publishers[publisher].window)
+  if (entry.window[0].timestamp <= now - this.options.frameSize) {
+    entry.window = [ { timestamp: now, visits: 0, duration: 0,
+                       scores: underscore.clone(this.options.emptyScores) }].concat(entry.window)
   }
 
-  this.publishers[publisher].window[0].visits++
-  this.publishers[publisher].window[0].duration += props.duration
+  entry.window[0].visits++
+  entry.window[0].duration += props.duration
   underscore.keys(scores).forEach(function (scorekeeper) {
-    if (!this.publishers[publisher].window[0].scores[scorekeeper]) this.publishers[publisher].window[0].scores[scorekeeper] = 0
-    this.publishers[publisher].window[0].scores[scorekeeper] += scores[scorekeeper]
+    if (!entry.window[0].scores[scorekeeper]) entry.window[0].scores[scorekeeper] = 0
+    entry.window[0].scores[scorekeeper] += scores[scorekeeper]
   }, this)
 
-  this.publishers[publisher].visits++
-  this.publishers[publisher].duration += props.duration
+  entry.visits++
+  entry.duration += props.duration
   underscore.keys(scores).forEach(function (scorekeeper) {
-    if (!this.publishers[publisher].scores[scorekeeper]) this.publishers[publisher].scores[scorekeeper] = 0
-    this.publishers[publisher].scores[scorekeeper] += scores[scorekeeper]
+    if (!entry.scores[scorekeeper]) entry.scores[scorekeeper] = 0
+    entry.scores[scorekeeper] += scores[scorekeeper]
   }, this)
 
   return publisher
