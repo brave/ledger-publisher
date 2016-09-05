@@ -39,15 +39,16 @@ var rules = [
     consequent: null,
     description: 'exclude image stores'
   },
-  { condition: "(new Set([ 'github.io', 'githubusercontent.com', 'tumblr.com', 'wordpress.com' ])).has(TLD)",
+  { condition: "(new Set([ 'github.io', 'githubusercontent.com' ])).has(TLD) || (new Set([ 'tumblr.com', 'wordpress.com' ])).has(SLD)",
     consequent: null,
     description: 'exclude content stores'
   },
-    { condition: "(new Set([ 'baiducontent.com', 'translate.googleusercontent.com', 'microsofttranslator.com' ])).has(TLD)",
+  {
+    condition: "(new Set([ 'baiducontent.com', 'googleusercontent.com', 'microsofttranslator.com' ])).has(SLD)",
     consequent: null,
     description: 'exclude machine-translations'
   },
-  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'medium', slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
+  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'medium', 'slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'exclude platform sites'
   },
@@ -65,7 +66,7 @@ var rules = [
     description: 'exclude campaign engines'
   },
 
-  { condition: "(new Set([ 'youtube.com', 'amazon.com', 'live.com', 'taobao.com', 'linkedin.com', 'instagram.com', 'vk.com', 'ebay.com', 'pinterest.com', 'tmall.com', 'amazon.co.jp', 'mail.ru', '360.cn', 'netflix.com', 'sohu.com', 'onclickads.net', 'microsoft.com', 'paypal.com', 'wordpress.com', 'tumblr.com', 'blogspot.com', 'imgur.com', 'naver.com', 'stackoverflow.com', 'apple.com', 'aliexpress.com', 'xvideos.com', 'imdb.com', '163.com', 'fc2.com', 'jd.com', 'ok.ru', 'amazon.in', 'blogger.com', 'office.com', 'craigslist.org', 'amazon.de', 'rakuten.co.jp', 'nicovideo.jp', 'booking.com', 'soso.com', 'pixnet.net', 'dropbox.com', 'bilibili.com', 'alibaba.com', 'youku.com', 'diply.com', 'googleusercontent.com', 'amazon.co.uk', 'outbrain.com', 'alipay.com', 'popads.net', 'microsoftonline.com', 'quora.com', 'coccoc.com', 'chase.com', 'docusign.net' ])).has(SLD)",
+  { condition: "(new Set([ 'youtube.com', 'amazon.com', 'live.com', 'taobao.com', 'linkedin.com', 'instagram.com', 'vk.com', 'ebay.com', 'pinterest.com', 'tmall.com', 'amazon.co.jp', 'mail.ru', '360.cn', 'netflix.com', 'sohu.com', 'onclickads.net', 'microsoft.com', 'paypal.com', 'blogspot.com', 'imgur.com', 'naver.com', 'stackoverflow.com', 'apple.com', 'aliexpress.com', 'xvideos.com', 'imdb.com', '163.com', 'fc2.com', 'jd.com', 'ok.ru', 'amazon.in', 'blogger.com', 'office.com', 'craigslist.org', 'amazon.de', 'rakuten.co.jp', 'nicovideo.jp', 'booking.com', 'soso.com', 'pixnet.net', 'dropbox.com', 'bilibili.com', 'alibaba.com', 'youku.com', 'diply.com', 'amazon.co.uk', 'outbrain.com', 'alipay.com', 'popads.net', 'microsoftonline.com', 'quora.com', 'coccoc.com', 'chase.com', 'docusign.net' ])).has(SLD)",
     consequent: null,
     description: 'excluded Alexa top 100 (some entries in earlier rules)'
   },
