@@ -47,7 +47,7 @@ var rules = [
     consequent: null,
     description: 'exclude machine-translations'
   },
-  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
+  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'medium', slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'exclude platform sites'
   },
