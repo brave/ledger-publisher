@@ -39,15 +39,19 @@ var rules = [
     consequent: null,
     description: 'exclude image stores'
   },
-  { condition: "(new Set([ 'github.io', 'githubusercontent.com' ])).has(TLD)",
+  { condition: "(new Set([ 'github.io', 'githubusercontent.com', 'tumblr.com', 'wordpress.com' ])).has(TLD)",
     consequent: null,
     description: 'exclude content stores'
   },
-  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
+    { condition: "(new Set([ 'baiducontent.com', 'translate.googleusercontent.com', 'microsofttranslator.com' ])).has(TLD)",
+    consequent: null,
+    description: 'exclude machine-translations'
+  },
+  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'medium', slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'exclude platform sites'
   },
-  { condition: "(new Set([ 'messenger', 'whatsapp' ])).has(SLD.split('.')[0])",
+  { condition: "(new Set([ 'messenger', 'skype', 'whatsapp' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'exclude messaging applications'
   },
