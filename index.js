@@ -210,7 +210,7 @@ Synopsis.prototype.addVisit = function (location, duration, markup) {
   try { publisher = getPublisher(location, markup) } catch (ex) { return }
   if (!publisher) return
 
-  return this.addPublisher(publisher, { duration: duration, markup: markup })
+  return this.addPublisher(publisher, { duration: duration, markup: markup, revisitP: false })
 }
 
 Synopsis.prototype.initPublisher = function (publisher, now) {
@@ -250,14 +250,14 @@ Synopsis.prototype.addPublisher = function (publisher, props) {
                        scores: underscore.clone(this.options.emptyScores) }].concat(entry.window)
   }
 
-  entry.window[0].visits++
+  if (!props.revisitP) entry.window[0].visits++
   entry.window[0].duration += props.duration
   underscore.keys(scores).forEach(function (scorekeeper) {
     if (!entry.window[0].scores[scorekeeper]) entry.window[0].scores[scorekeeper] = 0
     entry.window[0].scores[scorekeeper] += scores[scorekeeper]
   }, this)
 
-  entry.visits++
+  if (!props.revisitP) entry.visits++
   entry.duration += props.duration
   underscore.keys(scores).forEach(function (scorekeeper) {
     if (!entry.scores[scorekeeper]) entry.scores[scorekeeper] = 0
