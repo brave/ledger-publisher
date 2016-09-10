@@ -76,6 +76,11 @@ var rules = [
     description: 'exclude all government sites'
   },
 
+  { condition: "'brave.com' == SLD",
+    consequent: null,
+    description: 'res ipsa loquitur'
+  },
+
   { condition: true,
     consequent: 'SLD',
     description: 'the default rule'
