@@ -39,7 +39,7 @@ var rules = [
     consequent: null,
     description: 'exclude image stores'
   },
-  { condition: "(new Set([ 'github.io', 'githubusercontent.com' ])).has(TLD) || (new Set([ 'tumblr.com', 'wordpress.com' ])).has(SLD)",
+  { condition: "(new Set([ 'github.io', 'githubusercontent.com', 's3.amazonaws.com' ])).has(TLD) || (new Set([ 'amazonaws.com', 'tumblr.com', 'wordpress.com' ])).has(SLD)",
     consequent: null,
     description: 'exclude content stores'
   },
