@@ -165,7 +165,7 @@ var Synopsis = function (options) {
   this.options = options || {}
   this.options.scorekeepers = underscore.keys(Synopsis.prototype.scorekeepers)
   underscore.defaults(this.options, { minDuration: 8 * 1000, numFrames: 30, frameSize: 24 * 60 * 60 * 1000,
-                                      _d: 1 / (30 * 1000), minPublisherDuration: 0
+                                      _d: 1 / (30 * 1000), minPublisherDuration: 0, minPublisherVisits: 0
                                     })
   if (!this.options.scorekeepers[this.options.scorekeeper]) {
     this.options.scorekeeper = underscore.first(this.options.scorekeepers)
@@ -304,7 +304,9 @@ Synopsis.prototype._topN = function (n, scorekeeper, allP) {
   underscore.keys(this.publishers).forEach(function (publisher) {
     if (!this.publishers[publisher].scores[scorekeeper]) return
 
-    if ((!allP) && (this.options.minPublisherDuration > this.publishers[publisher].duration)) return
+    if ((!allP) &&
+          ((this.options.minPublisherDuration > this.publishers[publisher].duration) ||
+           (this.options.minPublisherVisits > this.publishers[publisher].vists))) return
 
     results.push(underscore.extend({ publisher: publisher }, underscore.omit(this.publishers[publisher], 'window')))
   }, this)
