@@ -1,4 +1,4 @@
-const rules = require('../rules')
+const rules = require('../categories')
 const tap = require('tap')
 
 tap.ok(rules.modules().length > 0, 'returns list of modules')
