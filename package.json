@@ -9,7 +9,8 @@
     "lint": "gulp lint",
     "test": "npm run test-security",
     "test-security": "nsp check",
-    "test-logic": "tap test"
+    "test-logic": "tap test",
+    "build-rules": "node tools/build-rules.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "dependencies": {
     "async": "^2.0.1",
     "data-expression": "1.0.0",
+    "glob": "^7.0.6",
     "joi": "^9.0.0-2",
     "jsdom": "9.1.0",
     "random-lib": "2.1.0",
