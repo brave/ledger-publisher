@@ -2,7 +2,7 @@ const glob = require('glob')
 const path = require('path')
 const async = require('async')
 
-const modules = glob.sync('*.js', { ignore: 'index.js', cwd: path.basename(__dirname) })
+const modules = glob.sync('*.js', { ignore: 'index.js', cwd: path.basename(__dirname) }).sort()
 
 module.exports = {
   modules: function() {
