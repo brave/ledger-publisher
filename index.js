@@ -436,7 +436,8 @@ module.exports = {
   isPublisher: isPublisher,
   rules: rules,
   schema: schema,
-  Synopsis: Synopsis
+  Synopsis: Synopsis,
+  getRules: require('./categories').all
 }
 
 var validity = Joi.validate(rules, schema)

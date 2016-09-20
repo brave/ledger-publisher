@@ -8,7 +8,9 @@
     "dump2": "node dump2.js",
     "lint": "gulp lint",
     "test": "npm run test-security",
-    "test-security": "nsp check"
+    "test-security": "nsp check",
+    "test-logic": "tap test",
+    "build-rules": "node tools/build-rules.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,9 @@
   },
   "homepage": "https://github.com/brave/ledger-publisher",
   "dependencies": {
+    "async": "^2.0.1",
     "data-expression": "1.0.0",
+    "glob": "^7.0.6",
     "joi": "^9.0.0-2",
     "jsdom": "9.1.0",
     "random-lib": "2.1.0",
@@ -40,6 +44,7 @@
     "knodeo-http-sync": "^0.1.0",
     "node-uuid": "^1.4.7",
     "nsp": "^2.2.0",
-    "run-sequence": "^1.1.0"
+    "run-sequence": "^1.1.0",
+    "tap": "^7.1.2"
   }
 }
