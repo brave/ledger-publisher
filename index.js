@@ -433,11 +433,11 @@ Synopsis.prototype.prune = function () {
 module.exports = {
   getPublisher: getPublisher,
   getPublisherProps: getPublisherProps,
+  getRules: require('./categories').all,
   isPublisher: isPublisher,
   ruleset: ruleset,
   schema: schema,
-  Synopsis: Synopsis,
-  getRules: require('./categories').all
+  Synopsis: Synopsis
 }
 
 var validity = Joi.validate(ruleset, schema)
