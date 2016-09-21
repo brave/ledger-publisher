@@ -30,7 +30,7 @@ var schema = Joi.array().min(1).items(Joi.object().keys(
   }
 ))
 
-var rules = [
+var ruleset = [
   { condition: "(new Set([ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ])).has(SLD.split('.')[0])",
     consequent: null,
     description: 'exclude search engines'
@@ -93,8 +93,8 @@ var getPublisher = function (location, markup) {
 
   if (!props) return
 
-  for (i = 0; i < rules.length; i++) {
-    rule = rules[i]
+  for (i = 0; i < ruleset.length; i++) {
+    rule = ruleset[i]
 
     if (!datax.evaluate(rule.condition, props)) continue
 
@@ -434,11 +434,11 @@ module.exports = {
   getPublisher: getPublisher,
   getPublisherProps: getPublisherProps,
   isPublisher: isPublisher,
-  rules: rules,
+  ruleset: ruleset,
   schema: schema,
   Synopsis: Synopsis,
   getRules: require('./categories').all
 }
 
-var validity = Joi.validate(rules, schema)
+var validity = Joi.validate(ruleset, schema)
 if (validity.error) throw new Error(validity.error)

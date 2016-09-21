@@ -117,7 +117,9 @@ then the publisher identity is `undefined`.
 
 An initial rule set is available as:
 
-    require('ledger-publisher').rules
+    require('ledger-publisher').ruleset
+
+**NB: THAT IN PREVIOUS VERSIONS OF THIS PACKAGE, THE PROPERTY WAS CALLED** `rules` **NOT** `ruleset`
 
 ### Your Help is Needed!
 Please submit a [pull request](https://github.com/brave/ledger-publisher/pulls) with updates to the rule set.
