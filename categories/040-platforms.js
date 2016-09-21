@@ -5,7 +5,21 @@ const platforms = [
   'medium',
   'slack',
   'twitter',
-  'wikipedia'
+  'wikipedia',
+  'xvideos',
+  'youtube',
+  'linkedin',
+  'instagram',
+  'pinterest',
+  'blogspot',
+  'imgur',
+  'stackoverflow',
+  'blogger',
+  'craigslist',
+  'bilibili',
+  'youku',
+  'quora',
+  'vk'
 ]
 
 module.exports = {
