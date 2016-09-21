@@ -1,8 +1,7 @@
 const glob = require('glob')
-const path = require('path')
 const async = require('async')
 
-const modules = glob.sync('[0-9]*.js', { ignore: 'index.js', cwd: path.basename(__dirname) }).sort()
+const modules = glob.sync('[0-9]*.js', { cwd: __dirname }).sort()
 
 const defaultRule = {
   condition: true,
