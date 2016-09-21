@@ -1,5 +1,5 @@
 const brave = [
-  'brave.com',
+  'brave.com'
 ]
 
 module.exports = {

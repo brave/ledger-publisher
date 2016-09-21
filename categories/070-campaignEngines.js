@@ -8,7 +8,6 @@ module.exports = {
   },
 
   build: function (cb) {
-(', ')
     const rule = {
       condition: `/^campaign-archive[0-9]+\.com$/.test(SLD)`,
       consequent: null,

@@ -1,17 +1,17 @@
 const domains = [
-  'amazon.com',
-  'taobao.com',
-  'ebay.com',
-  'tmall.com',
-  'amazon.co.jp',
   '360.cn',
-  'aliexpress.com',
-  'jd.com',
-  'amazon.in',
-  'amazon.de',
-  'rakuten.co.jp',
   'alibaba.com',
-  'amazon.co.uk'
+  'aliexpress.com',
+  'amazon.co.jp',
+  'amazon.co.uk',
+  'amazon.com',
+  'amazon.de',
+  'amazon.in',
+  'ebay.com',
+  'jd.com',
+  'rakuten.co.jp',
+  'taobao.com',
+  'tmall.com'
 ]
 
 module.exports = {

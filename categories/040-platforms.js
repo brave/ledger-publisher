@@ -1,25 +1,25 @@
 const platforms = [
+  'bilibili',
+  'blogger',
+  'blogspot',
+  'craigslist',
   'facebook',
   'github',
+  'imgur',
+  'instagram',
+  'linkedin',
   'livejournal',
   'medium',
+  'pinterest',
+  'quora',
   'slack',
+  'stackoverflow',
   'twitter',
+  'vk',
   'wikipedia',
   'xvideos',
-  'youtube',
-  'linkedin',
-  'instagram',
-  'pinterest',
-  'blogspot',
-  'imgur',
-  'stackoverflow',
-  'blogger',
-  'craigslist',
-  'bilibili',
   'youku',
-  'quora',
-  'vk'
+  'youtube'
 ]
 
 module.exports = {

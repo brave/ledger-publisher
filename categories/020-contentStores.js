@@ -1,10 +1,10 @@
-const contentStoresTLD  = [
+const contentStoresTLD = [
   'github.io',
   'githubusercontent.com',
   's3.amazonaws.com'
 ]
 
-const contentStoresSLD  = [
+const contentStoresSLD = [
   'amazonaws.com',
   'tumblr.com',
   'wordpress.com'

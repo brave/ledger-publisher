@@ -1,8 +1,8 @@
 const domains = [
-  'sohu.com',
-  'naver.com',
   '163.com',
-  'pixnet.net'
+  'naver.com',
+  'pixnet.net',
+  'sohu.com'
 ]
 
 module.exports = {

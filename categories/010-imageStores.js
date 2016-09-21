@@ -7,7 +7,7 @@ const imageStores = [
 
 module.exports = {
   retrieve: function (cb) {
-    cb(null, searchEngines)
+    cb(null, imageStores)
   },
 
   build: function (cb) {

@@ -11,7 +11,7 @@ const defaultRule = {
 }
 
 module.exports = {
-  modules: function() {
+  modules: function () {
     return modules
   },
   all: function (done) {

@@ -1,22 +1,22 @@
 const domains = [
+  'alipay.com',
+  'apple.com',
+  'booking.com',
+  'chase.com',
+  'coccoc.com',
+  'docusign.net',
+  'dropbox.com',
+  'fc2.com',
   'live.com',
   'mail.ru',
-  'netflix.com',
   'microsoft.com',
-  'paypal.com',
-  'apple.com',
-  'fc2.com',
-  'ok.ru',
-  'office.com',
-  'nicovideo.jp',
-  'booking.com',
-  'soso.com',
-  'dropbox.com',
-  'alipay.com',
   'microsoftonline.com',
-  'coccoc.com',
-  'chase.com',
-  'docusign.net'
+  'netflix.com',
+  'nicovideo.jp',
+  'office.com',
+  'ok.ru',
+  'paypal.com',
+  'soso.com'
 ]
 
 module.exports = {

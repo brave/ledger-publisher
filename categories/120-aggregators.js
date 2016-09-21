@@ -1,6 +1,6 @@
 const domains = [
-  'imdb.com',
-  'diply.com'
+  'diply.com',
+  'imdb.com'
 ]
 
 module.exports = {
