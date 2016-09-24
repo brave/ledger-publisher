@@ -1,7 +1,14 @@
 const domains = [
-  'diply.com',
-  'feedly.com',
-  'imdb.com'
+  '247exchange.com',
+  'bitcointoyou.com',
+  'bitgo.com',
+  'bitx.co',
+  'coinbase.com',
+  'coinbase.com',
+  'coinjar.com',
+  'cubits.com',
+  'quadrigacx.com',
+  'zebpay.com'
 ]
 
 module.exports = {
@@ -14,7 +21,7 @@ module.exports = {
     const rule = {
       condition: `(new Set([ ${transformedList} ])).has(SLD)`,
       consequent: null,
-      description: 'exclude aggregators'
+      description: 'exclude BTC exchanges'
     }
     cb(null, rule)
   }
