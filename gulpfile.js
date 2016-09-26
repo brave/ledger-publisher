@@ -4,8 +4,7 @@ var runSequence = require('run-sequence')
 var standard = require('gulp-standard')
 
 var SRC = [
-  'index.js', 'dump*.js', 'categories/*.js',
-  'gulpfile.js'
+  'index.js', 'dump*.js', 'categories/*.js', 'gulpfile.js'
 ]
 
 /**

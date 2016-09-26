@@ -30,62 +30,9 @@ var schema = Joi.array().min(1).items(Joi.object().keys(
   }
 ))
 
-var ruleset = [
-  { condition: "(new Set([ 'baidu', 'bing', 'google', 'sogou', 'yahoo', 'yandex', 'youdao' ])).has(SLD.split('.')[0])",
-    consequent: null,
-    description: 'exclude search engines'
-  },
-  { condition: "(new Set([ 'githubusercontent', 'ssl-images-amazon', 'twimg', 'ytimg' ])).has(SLD.split('.')[0])",
-    consequent: null,
-    description: 'exclude image stores'
-  },
-  { condition: "(new Set([ 'github.io', 'githubusercontent.com', 's3.amazonaws.com' ])).has(TLD) || (new Set([ 'amazonaws.com', 'tumblr.com', 'wordpress.com' ])).has(SLD)",
-    consequent: null,
-    description: 'exclude content stores'
-  },
-  {
-    condition: "(new Set([ 'baiducontent.com', 'googleusercontent.com', 'microsofttranslator.com' ])).has(SLD)",
-    consequent: null,
-    description: 'exclude machine-translations'
-  },
-  { condition: "(new Set([ 'facebook', 'github', 'livejournal', 'medium', 'slack', 'twitter', 'wikipedia' ])).has(SLD.split('.')[0])",
-    consequent: null,
-    description: 'exclude platform sites'
-  },
-  { condition: "(new Set([ 'messenger', 'skype', 'whatsapp' ])).has(SLD.split('.')[0])",
-    consequent: null,
-    description: 'exclude messaging applications'
-  },
-  // sometimes these don't immediately 302..
-  { condition: "(new Set([ 't.co' ])).has(SLD)",
-    consequent: null,
-    description: 'exclude redirection points'
-  },
-  { condition: '/^campaign-archive[0-9]+\.com$/.test(SLD)',
-    consequent: null,
-    description: 'exclude campaign engines'
-  },
-
-  { condition: "(new Set([ 'youtube.com', 'amazon.com', 'live.com', 'taobao.com', 'linkedin.com', 'instagram.com', 'vk.com', 'ebay.com', 'pinterest.com', 'tmall.com', 'amazon.co.jp', 'mail.ru', '360.cn', 'netflix.com', 'sohu.com', 'onclickads.net', 'microsoft.com', 'paypal.com', 'blogspot.com', 'imgur.com', 'naver.com', 'stackoverflow.com', 'apple.com', 'aliexpress.com', 'xvideos.com', 'imdb.com', '163.com', 'fc2.com', 'jd.com', 'ok.ru', 'amazon.in', 'blogger.com', 'office.com', 'craigslist.org', 'amazon.de', 'rakuten.co.jp', 'nicovideo.jp', 'booking.com', 'soso.com', 'pixnet.net', 'dropbox.com', 'bilibili.com', 'alibaba.com', 'youku.com', 'diply.com', 'amazon.co.uk', 'outbrain.com', 'alipay.com', 'popads.net', 'microsoftonline.com', 'quora.com', 'coccoc.com', 'chase.com', 'docusign.net' ])).has(SLD)",
-    consequent: null,
-    description: 'excluded Alexa top 100 (some entries in earlier rules)'
-  },
-
-  { condition: "TLD === 'gov' || /^go.[a-z][a-z]$/.test(TLD) || /^gov.[a-z][a-z]$/.test(TLD)",
-    consequent: null,
-    description: 'exclude all government sites'
-  },
-
-  { condition: "'brave.com' == SLD",
-    consequent: null,
-    description: 'res ipsa loquitur'
-  },
-
-  { condition: true,
-    consequent: 'SLD',
-    description: 'the default rule'
-  }
-]
+// Retrieve static ruleset
+// Note - the rules are dynamically built via the 'npm run build-rules' script (do not edit the rules/index.js file directly)
+var ruleset = require('./rules')
 
 var getPublisher = function (location, markup) {
   var consequent, i, result, rule

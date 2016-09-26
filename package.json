@@ -10,7 +10,7 @@
     "test": "npm run test-security",
     "test-security": "nsp check",
     "test-logic": "tap test",
-    "build-rules": "node tools/build-rules.js"
+    "build-rules": "node tools/build-rules.js > rules/index.js"
   },
   "repository": {
     "type": "git",
