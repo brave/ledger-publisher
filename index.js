@@ -30,10 +30,6 @@ var schema = Joi.array().min(1).items(Joi.object().keys(
   }
 ))
 
-// Retrieve static ruleset
-// Note - the rules are dynamically built via the 'npm run build-rules' script (do not edit the rules/index.js file directly)
-var ruleset = require('./rules')
-
 var getPublisher = function (location, markup) {
   var consequent, i, result, rule
   var props = getPublisherProps(location)
@@ -382,10 +378,11 @@ module.exports = {
   getPublisherProps: getPublisherProps,
   getRules: require('./categories').all,
   isPublisher: isPublisher,
-  ruleset: ruleset,
+// Note - the rules are dynamically built via the 'npm run build-rules' script (do not edit the rules/index.js file directly)
+  ruleset: require('./rules'),
   schema: schema,
   Synopsis: Synopsis
 }
 
-var validity = Joi.validate(ruleset, schema)
+var validity = Joi.validate(module.exports.ruleset, schema)
 if (validity.error) throw new Error(validity.error)
