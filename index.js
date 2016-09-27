@@ -93,8 +93,8 @@ var getPublisher = function (location, markup) {
 
   if (!props) return
 
-  for (i = 0; i < ruleset.length; i++) {
-    rule = ruleset[i]
+  for (i = 0; i < module.exports.ruleset.length; i++) {
+    rule = module.exports.ruleset[i]
 
     if (!datax.evaluate(rule.condition, props)) continue
 
