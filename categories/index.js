@@ -15,7 +15,11 @@ module.exports = {
   },
   all: function (done) {
     const complete = (err, rules) => {
-      rules = rules.concat(defaultRule)
+      if (err) {
+        rules = null
+      } else {
+        rules = rules.concat(defaultRule)
+      }
       done(err, rules)
     }
     async.map(modules, function (module, cb) {

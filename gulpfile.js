@@ -2,10 +2,10 @@ var gulp = require('gulp')
 var del = require('del')
 var runSequence = require('run-sequence')
 var standard = require('gulp-standard')
+var run = require('gulp-run')
 
 var SRC = [
-  'index.js', 'dump*.js', 'categories/*.js',
-  'gulpfile.js'
+  'index.js', 'dump*.js', 'categories/*.js', 'gulpfile.js', 'rules/*.js'
 ]
 
 /**
@@ -14,7 +14,7 @@ var SRC = [
 var failOnLint = false
 gulp.task('angry-lint', function (cb) {
   failOnLint = true
-  runSequence(['lint'], cb)
+  runSequence(['build-rules', 'lint'], cb)
 })
 
 /**
@@ -28,6 +28,13 @@ gulp.task('lint', function () {
     .pipe(standard.reporter('default', {
       breakOnError: failOnLint
     }))
+})
+
+/**
+ * Build rule set from categories
+ */
+gulp.task('build-rules', function () {
+  return run('npm run build-rules').exec()
 })
 
 /**

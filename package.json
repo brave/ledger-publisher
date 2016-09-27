@@ -10,7 +10,7 @@
     "test": "npm run test-security",
     "test-security": "nsp check",
     "test-logic": "tap test",
-    "build-rules": "node tools/build-rules.js"
+    "build-rules": "node tools/build-rules.js > rules/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
   "devDependencies": {
     "del": "^2.0.2",
     "gulp": "^3.9.0",
+    "gulp-run": "^1.7.1",
     "gulp-standard": "^5.2.2",
     "knodeo-http-sync": "^0.1.0",
     "node-uuid": "^1.4.7",

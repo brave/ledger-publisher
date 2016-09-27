@@ -115,6 +115,10 @@ the resulting value is used as the publisher identity.
 6. If Step 5.5 is never executed,
 then the publisher identity is `undefined`.
 
+The initial rule set is built by a NPM script:
+
+    npm run build-rules
+
 An initial rule set is available as:
 
     require('ledger-publisher').ruleset
