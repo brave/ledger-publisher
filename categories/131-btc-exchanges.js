@@ -4,7 +4,6 @@ const domains = [
   'bitgo.com',
   'bitx.co',
   'coinbase.com',
-  'coinbase.com',
   'coinjar.com',
   'cubits.com',
   'quadrigacx.com',

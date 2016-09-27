@@ -14,7 +14,7 @@ module.exports = {
     const rule = {
       condition: `(new Set([ ${transformedList} ])).has(SLD)`,
       consequent: null,
-      description: 'exclude add platforms'
+      description: 'exclude advertising platforms'
     }
     cb(null, rule)
   }
