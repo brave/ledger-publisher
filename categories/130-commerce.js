@@ -11,7 +11,10 @@ const domains = [
   'jd.com',
   'rakuten.co.jp',
   'taobao.com',
-  'tmall.com'
+  'tmall.com',
+  'racerglovesusa.com',
+  'rei.com',
+  'samsung.com'
 ]
 
 module.exports = {
