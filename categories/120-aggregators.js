@@ -1,12 +1,12 @@
 const domains = [
+  'awkwardfamilyphotos.com',
   'diply.com',
   'feedly.com',
   'imdb.com',
-  'ycombinator.com',
-  'stackexchange.com',
-  'awkwardfamilyphotos.com',
   'reddit.com',
-  'superuser.com'
+  'stackexchange.com',
+  'superuser.com',
+  'ycombinator.com'
 ]
 
 module.exports = {

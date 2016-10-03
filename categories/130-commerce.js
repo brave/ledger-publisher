@@ -9,12 +9,12 @@ const domains = [
   'amazon.in',
   'ebay.com',
   'jd.com',
-  'rakuten.co.jp',
-  'taobao.com',
-  'tmall.com',
   'racerglovesusa.com',
+  'rakuten.co.jp',
   'rei.com',
-  'samsung.com'
+  'samsung.com',
+  'taobao.com',
+  'tmall.com'
 ]
 
 module.exports = {
