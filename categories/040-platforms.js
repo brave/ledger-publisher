@@ -19,7 +19,9 @@ const platforms = [
   'wikipedia',
   'xvideos',
   'youku',
-  'youtube'
+  'youtube',
+  'ello',
+  'nextdoor'
 ]
 
 module.exports = {
