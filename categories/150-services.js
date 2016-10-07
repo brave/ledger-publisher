@@ -60,7 +60,17 @@ const domains = [
   'usefixie.com',
   'wpengine.com',
   'yelp.com',
-  'zendesk.com'
+  'zendesk.com',
+  'flattr.net',
+  'fastmail.com',
+  'hvaerminip.no',
+  'ipv6-test.com',
+  'test-ipv6.com',
+  'steampowered.com',
+  'storytel.no',
+  'audible.com',
+  'icloud.com',
+  'simplenote.com'
 ]
 
 module.exports = {

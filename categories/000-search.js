@@ -5,7 +5,11 @@ const searchEngines = [
   'sogou',
   'yahoo',
   'yandex',
-  'youdao'
+  'youdao',
+  'ixquick',
+  'dogpile',
+  'kvasir',
+  'searx'
 ]
 
 module.exports = {
