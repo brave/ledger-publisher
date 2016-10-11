@@ -7,5 +7,7 @@ const opts = {
 }
 
 rules.all(function (err, definition) {
+  if (err) throw err
+
   console.log('module.exports = ' + util.inspect(definition, opts))
 })

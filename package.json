@@ -6,7 +6,7 @@
   "scripts": {
     "dump": "node dump.js",
     "dump2": "node dump2.js",
-    "lint": "gulp lint",
+    "lint": "standard",
     "test": "npm run test-security",
     "test-security": "nsp check",
     "test-logic": "tap test",
@@ -46,6 +46,7 @@
     "node-uuid": "^1.4.7",
     "nsp": "^2.2.0",
     "run-sequence": "^1.1.0",
+    "standard": "8.1.0",
     "tap": "^7.1.2"
   }
 }
