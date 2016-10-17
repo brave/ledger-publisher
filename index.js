@@ -107,8 +107,12 @@ var Synopsis = function (options) {
 
   this.options = options || {}
   this.options.scorekeepers = underscore.keys(Synopsis.prototype.scorekeepers)
-  underscore.defaults(this.options, { minDuration: 10 * 1000, numFrames: 30, frameSize: 24 * 60 * 60 * 1000,
-                                      _d: 1 / (30 * 1000), minPublisherDuration: 0, minPublisherVisits: 0
+  underscore.defaults(this.options, { minDuration: 10 * 1000,
+                                      numFrames: 30,
+                                      frameSize: 24 * 60 * 60 * 1000,
+                                      _d: 1 / (30 * 1000),
+                                      minPublisherDuration: 0,
+                                      minPublisherVisits: 0
                                     })
   if (!this.options.scorekeepers[this.options.scorekeeper]) {
     this.options.scorekeeper = underscore.first(this.options.scorekeepers)
@@ -172,8 +176,12 @@ Synopsis.prototype.initPublisher = function (publisher, now) {
     return
   }
 
-  this.publishers[publisher] = { visits: 0, duration: 0, scores: underscore.clone(this.options.emptyScores),
-                                 window: [ { timestamp: underscore.now(), visits: 0, duration: 0,
+  this.publishers[publisher] = { visits: 0,
+                                 duration: 0,
+                                 scores: underscore.clone(this.options.emptyScores),
+                                 window: [ { timestamp: underscore.now(),
+                                             visits: 0,
+                                             duration: 0,
                                              scores: underscore.clone(this.options.emptyScores) } ]
                                }
 }
@@ -194,7 +202,9 @@ Synopsis.prototype.addPublisher = function (publisher, props) {
   entry = this.publishers[publisher]
 
   if (entry.window[0].timestamp <= now - this.options.frameSize) {
-    entry.window = [ { timestamp: now, visits: 0, duration: 0,
+    entry.window = [ { timestamp: now,
+                       visits: 0,
+                       duration: 0,
                        scores: underscore.clone(this.options.emptyScores) }].concat(entry.window)
   }
 
