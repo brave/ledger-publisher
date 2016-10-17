@@ -1,5 +1,4 @@
 const contentStoresTLD = [
-  'github.io',
   'githubusercontent.com',
   's3.amazonaws.com'
 ]

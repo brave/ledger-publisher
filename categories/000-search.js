@@ -1,15 +1,15 @@
 const searchEngines = [
   'baidu',
   'bing',
+  'dogpile',
   'google',
+  'ixquick',
+  'kvasir',
+  'searx',
   'sogou',
   'yahoo',
   'yandex',
-  'youdao',
-  'ixquick',
-  'dogpile',
-  'kvasir',
-  'searx'
+  'youdao'
 ]
 
 module.exports = {
