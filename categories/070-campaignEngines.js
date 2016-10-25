@@ -1,5 +1,5 @@
 const campaignEngines = [
-  'campaign-archive[0-9]+\.com'
+  'campaign-archive[0-9]+.com'
 ]
 
 module.exports = {

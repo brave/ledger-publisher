@@ -1,13 +1,15 @@
 const contentStoresTLD = [
-  'githubusercontent.com',
-  's3.amazonaws.com'
+  'githubusercontent.com'
 ]
 
 const contentStoresSLD = [
   'amazonaws.com',
+  'herokuapp.com',
   'tumblr.com',
   'wordpress.com'
 ]
+
+const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
   retrieve: function (cb) {
@@ -16,8 +18,11 @@ module.exports = {
 
   build: function (cb) {
     const transformedListTLD = contentStoresTLD.map((item) => { return `'${item}'` }).join(', ')
-    const transformedListSLD = contentStoresSLD.map((item) => { return `'${item}'` }).join(', ')
-    const condition = `(new Set([ ${transformedListTLD} ])).has(TLD) || (new Set([ ${transformedListSLD} ])).has(SLD)`
+    var condition = `(new Set([ ${transformedListTLD} ])).has(TLD)`
+    contentStoresSLD.forEach(function (SLD) {
+      condition += ' || /' + regexpEscape(SLD) + '$/.test(SLD)'
+    })
+
     const rule = {
       condition: condition,
       consequent: null,

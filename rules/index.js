@@ -4,7 +4,7 @@ module.exports = [ { condition: '(new Set([ \'baidu\', \'bing\', \'dogpile\', \'
   { condition: '(new Set([ \'githubusercontent\', \'ssl-images-amazon\', \'twimg\', \'ytimg\' ])).has(SLD.split(\'.\')[0])',
     consequent: null,
     description: 'exclude image stores' },
-  { condition: '(new Set([ \'githubusercontent.com\', \'s3.amazonaws.com\' ])).has(TLD) || (new Set([ \'amazonaws.com\', \'tumblr.com\', \'wordpress.com\' ])).has(SLD)',
+  { condition: '(new Set([ \'githubusercontent.com\' ])).has(TLD) || /amazonaws\\.com$/.test(SLD) || /herokuapp\\.com$/.test(SLD) || /tumblr\\.com$/.test(SLD) || /wordpress\\.com$/.test(SLD)',
     consequent: null,
     description: 'exclude content stores' },
   { condition: '(new Set([ \'baiducontent.com\', \'googleusercontent.com\', \'microsofttranslator.com\' ])).has(SLD)',
