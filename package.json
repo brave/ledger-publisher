@@ -34,7 +34,7 @@
     "underscore.string": "3.3.4"
   },
   "engines": {
-    "node": ">= 6.1.0"
+    "node": ">= 6.1.0",
     "npm": "3.6.0"
   },
   "devDependencies": {
