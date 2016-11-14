@@ -1,6 +1,6 @@
 {
   "name": "ledger-publisher",
-  "version": "0.8.90",
+  "version": "0.8.91",
   "description": "Routines to identify publishers for the Brave ledger.",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "underscore.string": "3.3.4"
   },
   "engines": {
-    "node": "5.6.0",
+    "node": ">= 6.1.0"
     "npm": "3.6.0"
   },
   "devDependencies": {
