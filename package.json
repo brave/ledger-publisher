@@ -1,6 +1,6 @@
 {
   "name": "ledger-publisher",
-  "version": "0.8.91",
+  "version": "0.8.95",
   "description": "Routines to identify publishers for the Brave ledger.",
   "main": "index.js",
   "scripts": {
@@ -43,10 +43,10 @@
     "gulp-run": "^1.7.1",
     "gulp-standard": "^5.2.2",
     "knodeo-http-sync": "^0.1.0",
-    "node-uuid": "^1.4.7",
     "nsp": "^2.2.0",
     "run-sequence": "^1.1.0",
     "standard": "8.1.0",
-    "tap": "^7.1.2"
+    "tap": "^7.1.2",
+    "uuid": "3.0.0"
   }
 }
