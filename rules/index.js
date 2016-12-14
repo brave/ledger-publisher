@@ -10,7 +10,7 @@ module.exports = [ { condition: '(new Set([ \'baidu\', \'bing\', \'dogpile\', \'
   { condition: '(new Set([ \'baiducontent.com\', \'googleusercontent.com\', \'microsofttranslator.com\' ])).has(SLD)',
     consequent: null,
     description: 'exclude machine-translations' },
-  { condition: '(new Set([ \'bilibili\', \'blogger\', \'blogspot\', \'craigslist\', \'facebook\', \'github\', \'imgur\', \'instagram\', \'linkedin\', \'livejournal\', \'medium\', \'pinterest\', \'quora\', \'slack\', \'stackoverflow\', \'twitter\', \'vk\', \'wikipedia\', \'xvideos\', \'youku\', \'youtube\', \'ello\', \'nextdoor\' ])).has(SLD.split(\'.\')[0])',
+  { condition: '(new Set([ \'bilibili\', \'blogger\', \'blogspot\', \'craigslist\', \'facebook\', \'github\', \'imgur\', \'instagram\', \'linkedin\', \'livejournal\', \'medium\', \'pinterest\', \'quora\', \'slack\', \'stackoverflow\', \'twitter\', \'vk\', \'xvideos\', \'youku\', \'youtube\', \'ello\', \'nextdoor\' ])).has(SLD.split(\'.\')[0])',
     consequent: null,
     description: 'exclude platforms' },
   { condition: '(new Set([ \'messenger\', \'skype\', \'whatsapp\' ])).has(SLD.split(\'.\')[0])',

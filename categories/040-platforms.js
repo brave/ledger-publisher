@@ -16,7 +16,6 @@ const platforms = [
   'stackoverflow',
   'twitter',
   'vk',
-  'wikipedia',
   'xvideos',
   'youku',
   'youtube',
