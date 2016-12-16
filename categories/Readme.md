@@ -40,7 +40,7 @@ This category encompasses websites that use software to translate text from one 
 ##Re-direction
 This category encompasses websites that make websites available under more than one URL address.
 
-#S#earch
+##Search
 This category encompasses websites that utilize software to search the world wide web for images or strings of words and provide a list of webpages of where they are found.
 
 ##Services
