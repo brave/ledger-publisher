@@ -165,10 +165,13 @@ Synopsis.prototype.addVisit = function (location, duration, markup) {
   return this.addPublisher(publisher, { duration: duration, markup: markup, revisitP: false })
 }
 
-Synopsis.prototype.initPublisher = function (publisher, now) {
+Synopsis.prototype.initPublisher = function (publisher, now, props) {
   var entry = this.publishers[publisher]
 
   if (entry) {
+    if (!entry.options) entry.options = {}
+    entry.options.stickyP = props.stickyP
+
     if ((!entry.window) || (!entry.window.length)) {
       entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, scores: entry.scores } ]
     }
@@ -178,6 +181,7 @@ Synopsis.prototype.initPublisher = function (publisher, now) {
 
   this.publishers[publisher] = { visits: 0,
                                  duration: 0,
+                                 options: { stickyP: props.stickyP },
                                  scores: underscore.clone(this.options.emptyScores),
                                  window: [ { timestamp: underscore.now(),
                                              visits: 0,
@@ -193,12 +197,12 @@ Synopsis.prototype.addPublisher = function (publisher, props) {
   if (!props) return
 
   if (typeof props === 'number') props = { duration: props }
-  if (props.duration < this.options.minDuration) return
+  if ((!props.stickyP) && (props.duration < this.options.minDuration)) return
 
   scores = this.scores(props)
   if (!scores) return
 
-  this.initPublisher(publisher, now)
+  this.initPublisher(publisher, now, props)
   entry = this.publishers[publisher]
 
   if (entry.window[0].timestamp <= now - this.options.frameSize) {
@@ -257,9 +261,11 @@ Synopsis.prototype._topN = function (n, scorekeeper, allP) {
   underscore.keys(this.publishers).forEach(function (publisher) {
     if (!this.publishers[publisher].scores[scorekeeper]) return
 
-    if ((!allP) &&
-          ((this.options.minPublisherDuration > this.publishers[publisher].duration) ||
-           (this.options.minPublisherVisits > this.publishers[publisher].vists))) return
+    if (!this.publishers[publisher].options.stickyP) {
+      if ((!allP) &&
+            ((this.options.minPublisherDuration > this.publishers[publisher].duration) ||
+             (this.options.minPublisherVisits > this.publishers[publisher].vists))) return
+    }
 
     results.push(underscore.extend({ publisher: publisher }, underscore.omit(this.publishers[publisher], 'window')))
   }, this)
@@ -324,6 +330,7 @@ Synopsis.prototype.scores = function (props) {
     var score = Synopsis.prototype.scorekeepers[scorekeeper].bind(this)(props)
 
     result[scorekeeper] = score > 0 ? score : 0
+    if ((score === 0) && (props.stickyP)) score = 1
     if (score > 0) emptyP = false
   }, this)
 
