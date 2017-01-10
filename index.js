@@ -171,7 +171,7 @@ Synopsis.prototype.initPublisher = function (publisher, now, props) {
 
   if (entry) {
     if (!entry.options) entry.options = {}
-    entry.options.stickyP = props.stickyP
+    entry.options.stickyP = props && props.stickyP
 
     if ((!entry.window) || (!entry.window.length)) {
       entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, scores: entry.scores } ]
