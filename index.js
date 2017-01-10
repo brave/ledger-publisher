@@ -169,9 +169,10 @@ Synopsis.prototype.addVisit = function (location, duration, markup) {
 Synopsis.prototype.initPublisher = function (publisher, now, props) {
   var entry = this.publishers[publisher]
 
+  if (!props) props = {}
   if (entry) {
     if (!entry.options) entry.options = {}
-    entry.options.stickyP = props && props.stickyP
+    entry.options.stickyP = props.stickyP
 
     if ((!entry.window) || (!entry.window.length)) {
       entry.window = [ { timestamp: now, visits: entry.visits, duration: entry.duration, scores: entry.scores } ]
