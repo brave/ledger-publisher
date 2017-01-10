@@ -133,6 +133,7 @@ var Synopsis = function (options) {
     var entry = this.publishers[publisher]
 
 // NB: legacy support
+    if (typeof entry.options === 'undefined') entry.options = {}
     if (typeof entry.scores === 'undefined') {
       entry.scores = underscore.clone(this.options.emptyScores)
       if (entry.score) {
