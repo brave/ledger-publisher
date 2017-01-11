@@ -31,17 +31,6 @@ const contentStoresSLD = [
   '123rf.com'
 ]
 
-const adult = [
-'livejasmin.com',
-'spankbang.com',
-'tube8.com',
-'upornia.com',
-'xhamster.com',
-'xnxx.com',
-'hclips.com',
-'txxx.com']
-
-
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
