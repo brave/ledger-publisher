@@ -6,7 +6,30 @@ const domains = [
   'reddit.com',
   'stackexchange.com',
   'superuser.com',
-  'ycombinator.com'
+  'ycombinator.com',
+  'azlyrics.com',
+  'dingit.tv',
+  'diply.com',
+  'douban.com',
+  'gamefaqs.com',
+  'gamepedia.com',
+  'gsmarena.com',
+  'ign.com',
+  'imdb.com',
+  'subscene.com',
+  'theladbible.com',
+  'wikia.com',
+  'wikihow.com',
+  'babycenter.com',
+  'biblegateway.com',
+  'billboard.com',
+  'bodybuilding.com',
+  'alodokter.com',
+  'brainyquote.com',
+  'yelp.com',
+  'kinopoisk.ru',
+  'tripadvisor.com',
+  'redd.it'
 ]
 
 module.exports = {

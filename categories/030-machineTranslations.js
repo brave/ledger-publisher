@@ -1,7 +1,8 @@
 const machineTranslations = [
   'baiducontent.com',
   'googleusercontent.com',
-  'microsofttranslator.com'
+  'microsofttranslator.com',
+  'youdao.com'
 ]
 
 module.exports = {

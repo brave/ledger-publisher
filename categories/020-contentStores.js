@@ -6,7 +6,29 @@ const contentStoresSLD = [
   'amazonaws.com',
   'herokuapp.com',
   'tumblr.com',
-  'wordpress.com'
+  'wordpress.com',
+  '163.com',
+  'adobe.com',
+  'atlassian.net',
+  'beeg.com',
+  'dailymotion.com',
+  'filehippo.com',
+  'freepik.com',
+  'giphy.com',
+  'hotstar.com',
+  'kissanime.to',
+  'mozilla.org',
+  'putlockers.ch',
+  'rutracker.org',
+  'sourceforge.net',
+  'trello.com',
+  'uptodown.com',
+  'baixaki.com.br',
+  'bongacams.com',
+  'chaturbate.com',
+  'dmm.co.jp',
+  'shutterstock.com',
+  '123rf.com'
 ]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
