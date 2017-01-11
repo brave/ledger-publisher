@@ -1,12 +1,13 @@
 const adult = [
+  'hclips.com',
   'livejasmin.com',
   'spankbang.com',
   'tube8.com',
+  'txxx.com',
   'upornia.com',
   'xhamster.com',
-  'xnxx.com',
-  'hclips.com',
-  'txxx.com']
+  'xnxx.com'
+]
 
 module.exports = {
   retrieve: function (cb) {

@@ -1,10 +1,11 @@
-const government=[
+const government = [
   'acm.nl',
   'consuwijzer.nl',
   'digid.nl',
   'europa.eu',
   'officielebekendmakingen.nl',
-  'overheid.nl ]
+  'overheid.nl'
+]
 
 module.exports = {
   retrieve: function (cb) {

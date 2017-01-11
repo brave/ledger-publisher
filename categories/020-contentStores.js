@@ -3,39 +3,39 @@ const contentStoresTLD = [
 ]
 
 const contentStoresSLD = [
-  'amazonaws.com',
-  'herokuapp.com',
-  'tumblr.com',
-  'wordpress.com',
+  '123rf.com',
   '163.com',
   'adobe.com',
+  'amazonaws.com',
   'atlassian.net',
+  'baixaki.com.br',
   'beeg.com',
+  'bongacams.com',
+  'chaturbate.com',
   'dailymotion.com',
+  'dmm.co.jp',
   'filehippo.com',
   'freepik.com',
   'giphy.com',
+  'herokuapp.com',
   'hotstar.com',
   'kissanime.to',
   'mozilla.org',
   'putlockers.ch',
   'rutracker.org',
+  'shutterstock.com',
   'sourceforge.net',
   'trello.com',
+  'tumblr.com',
   'uptodown.com',
-  'baixaki.com.br',
-  'bongacams.com',
-  'chaturbate.com',
-  'dmm.co.jp',
-  'shutterstock.com',
-  '123rf.com'
+  'wordpress.com'
 ]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
   retrieve: function (cb) {
-    cb(null, contentStoresSLD.concate(contentStoresTLD))
+    cb(null, contentStoresSLD.concat(contentStoresTLD))
   },
 
   build: function (cb) {

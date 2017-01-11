@@ -9,88 +9,36 @@ const searchEngines = [
   'sogou',
   'yahoo',
   'yandex',
-  'youdao',
-  'baidu.com',
-  'google.ae',
-  'google.at',
-  'google.az',
-  'google.be',
-  'google.ca',
-  'google.ch',
-  'google.cl',
-  'google.cn',
-  'google.co.ao',
-  'google.co.id',
-  'google.co.il',
-  'google.co.in',
-  'google.co.kr',
-  'google.co.th',
-  'google.co.uk',
-  'google.co.ve',
-  'google.co.za',
-  'google.com.ar',
-  'google.com.au',
-  'google.com.bd',
-  'google.com.br',
-  'google.com.co',
-  'google.com.eg',
-  'google.com.hk',
-  'google.com.kw',
-  'google.com.mx',
-  'google.com.ng',
-  'google.com.pe',
-  'google.com.ph',
-  'google.com.pk',
-  'google.com.sa',
-  'google.com.sg',
-  'google.com.tr',
-  'google.com.tw',
-  'google.com.ua',
-  'google.com.vn',
-  'google.cz',
-  'google.de',
-  'google.dk',
-  'google.dz',
-  'google.es',
-  'google.fi',
-  'google.fr',
-  'google.gr',
-  'google.hu',
-  'google.ie',
-  'google.it',
-  'google.kz',
-  'google.nl',
-  'google.pl',
-  'google.pt',
-  'google.ro',
-  'google.ru',
-  'google.se',
-  'google.sk',
+  'youdao'
+]
+
+const searchEnginesSLD = [
+  '1337x.to',
   'ask.com',
+  'bab.la',
   'haosou.com',
+  'indeed.com',
   'rambler.ru',
   'so.com',
-  'sogou.com',
-  'soso.com',
-  'yahoo.com',
-  'bing.com',
-  'google.co.jp',
-  'google.com',
-  'google.no',
-  'indeed.com',
-  '1337x.to',
-  'bab.la'
+  'soso.com'
 ]
+
+const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
   retrieve: function (cb) {
-    cb(null, searchEngines)
+    cb(null, searchEnginesSLD.concat(searchEngines))
   },
 
   build: function (cb) {
     const transformedList = searchEngines.map((item) => { return `'${item}'` }).join(', ')
+    var condition = `(new Set([ ${transformedList} ])).has(SLD.split('.')[0])`
+    searchEnginesSLD.forEach(function (SLD) {
+      condition += ' || /' + regexpEscape(SLD) + '$/.test(SLD)'
+    })
+
     const rule = {
-      condition: `(new Set([ ${transformedList} ])).has(SLD.split('.')[0])`,
+      condition: condition,
       consequent: null,
       description: 'exclude search engines'
     }

@@ -1,24 +1,23 @@
 const domains = [
-  'onclickads.net',
-  'outbrain.com',
-  'popads.net',
   '4dsply.com',
   'adexc.net',
   'adexchangeprediction.com',
+  'adf.ly',
   'adnetworkperformance.com',
+  'adscpm.net',
   'clicksgear.com',
   'cloudfront.net',
+  'doubleclick.net',
   'doublepimp.com',
   'exoclick.com',
   'hilltopads.net',
-  'mixplugin.com',
-  'popads.net',
-  'sh.st',
-  'adscpm.net',
-  'doubleclick.net',
-  'poptm.com',
   'mama.cn',
-  'adf.ly'
+  'mixplugin.com',
+  'onclickads.net',
+  'outbrain.com',
+  'popads.net',
+  'poptm.com',
+  'sh.st'
 ]
 
 module.exports = {
