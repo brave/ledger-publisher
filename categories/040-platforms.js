@@ -73,7 +73,6 @@ const platformsSLD = [
   'force.com',
   'gfycat.com',
   'github.com',
-  'github.io',
   'hatenablog.com',
   'imgur.com',
   'instagram.com',
