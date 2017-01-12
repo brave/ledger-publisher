@@ -6,7 +6,6 @@ const domains = [
   'awkwardfamilyphotos.com',
   'azlyrics.com',
   'babycenter.com',
-  'biblegateway.com',
   'billboard.com',
   'bodybuilding.com',
   'brainyquote.com',

@@ -23,7 +23,7 @@ const platforms = [
   'youtube'
 ]
 
-const platformsSLD = [  
+const platformsSLD = [
   '17k.com',
   '17track.net',
   '2ch.net',
