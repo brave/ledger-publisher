@@ -6,6 +6,7 @@ const domains = [
   'coinbase.com',
   'coinjar.com',
   'cubits.com',
+  'okcoin.com',
   'quadrigacx.com',
   'uphold.com',
   'zebpay.com'

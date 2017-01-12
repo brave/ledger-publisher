@@ -1,5 +1,6 @@
 const domains = [
   '4dsply.com',
+  'ab4hr.com',
   'adexc.net',
   'adexchangeprediction.com',
   'adf.ly',
@@ -13,11 +14,21 @@ const domains = [
   'hilltopads.net',
   'mama.cn',
   'mixplugin.com',
+  'newpoptab.com',
+  'offerreality.com',
   'onclickads.net',
   'outbrain.com',
   'popads.net',
   'poptm.com',
-  'sh.st'
+  'redirectvoluum.com',
+  'sh.st',
+  'spotscenered.info',
+  'terraclicks.com',
+  'thewhizmarketing.com',
+  'thewhizproducts.com',
+  'trackingclick.net',
+  'tradeadexchange.com',
+  'tvplusnewtab.com'
 ]
 
 module.exports = {
