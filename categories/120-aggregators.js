@@ -1,4 +1,7 @@
 const domains = [
+  '3dmgame.com',
+  '4399.com',
+  '6park.com',
   'alodokter.com',
   'awkwardfamilyphotos.com',
   'azlyrics.com',
@@ -17,17 +20,23 @@ const domains = [
   'ign.com',
   'imdb.com',
   'kinopoisk.ru',
+  'ozock.com',
+  'providr.com',
   'redd.it',
   'reddit.com',
+  'reddituploads.com',
+  'scribol.com',
   'stackexchange.com',
   'subscene.com',
   'superuser.com',
   'theladbible.com',
   'tripadvisor.com',
+  'webtretho.com',
   'wikia.com',
   'wikihow.com',
   'ycombinator.com',
-  'yelp.com'
+  'yelp.com',
+  'yesky.com'
 ]
 
 module.exports = {

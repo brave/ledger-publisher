@@ -1,4 +1,5 @@
 const redirectionPoints = [
+  '8307.ws',
   't.co'
 ]
 

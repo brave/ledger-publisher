@@ -5,6 +5,7 @@ const contentStoresTLD = [
 const contentStoresSLD = [
   '123rf.com',
   '163.com',
+  '3sk.tv',
   'adobe.com',
   'amazonaws.com',
   'atlassian.net',
@@ -21,14 +22,24 @@ const contentStoresSLD = [
   'hotstar.com',
   'kissanime.to',
   'mozilla.org',
+  'netflix.com',
+  'pinimg.com',
   'putlockers.ch',
+  'rarbg.to',
   'rutracker.org',
+  'sciencedirect.com',
+  'seasonvar.ru',
   'shutterstock.com',
+  'softonic.com',
   'sourceforge.net',
+  'thepiratebay.org',
   'trello.com',
   'tumblr.com',
+  'tutorialspoint.com',
   'uptodown.com',
-  'wordpress.com'
+  'w3schools.com',
+  'wordpress.com',
+  'yts.ag'
 ]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }

@@ -18,9 +18,13 @@ const searchEnginesSLD = [
   'bab.la',
   'haosou.com',
   'indeed.com',
+  'myway.com',
   'rambler.ru',
   'so.com',
-  'soso.com'
+  'soso.com',
+  'torrentz2.eu',
+  'weblio.jp',
+  'youth.cn'
 ]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
