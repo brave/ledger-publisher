@@ -31,8 +31,6 @@ const domains = [
   'theladbible.com',
   'tripadvisor.com',
   'webtretho.com',
-  'wikia.com',
-  'wikihow.com',
   'ycombinator.com',
   'yelp.com',
   'yesky.com'
