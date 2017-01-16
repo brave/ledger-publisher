@@ -60,7 +60,8 @@ const domains = [
   'utarget.ru',
   'vibbo.com',
   'vimeo.com',
-  'vppgamingnetwork.com']
+  'vppgamingnetwork.com'
+]
 
 module.exports = {
   retrieve: function (cb) {

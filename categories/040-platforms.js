@@ -20,7 +20,8 @@ const platforms = [
   'vk',
   'xvideos',
   'youku',
-  'youtube']
+  'youtube'
+]
 
 const platformsSLD = [
   '1111.com.tw',
@@ -293,7 +294,8 @@ const platformsSLD = [
   'zhihu.com',
   'zillow.com',
   'znanija.com',
-  'zoom.us']
+  'zoom.us'
+]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 

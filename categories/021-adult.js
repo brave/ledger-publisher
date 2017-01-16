@@ -1,4 +1,4 @@
-const adult = [  
+const adult = [
   'cam4.es',
   'camgasm.com',
   'caribbeancom.com',
@@ -50,7 +50,8 @@ const adult = [
   'xhamsterlive.com',
   'xnxx.com',
   'xonline.vip',
-  'yespornplease.com']
+  'yespornplease.com'
+]
 
 module.exports = {
   retrieve: function (cb) {

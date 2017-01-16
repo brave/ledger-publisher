@@ -9,7 +9,8 @@ const searchEngines = [
   'sogou',
   'yahoo',
   'yandex',
-  'youdao']
+  'youdao'
+]
 
 const searchEnginesSLD = [
   '123rf.com',
@@ -97,7 +98,8 @@ const searchEnginesSLD = [
   'zillow.com',
   'ziprecruiter.com',
   'zoopla.co.uk',
-  'zybang.com']
+  'zybang.com'
+]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 

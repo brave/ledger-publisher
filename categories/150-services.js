@@ -343,7 +343,8 @@ const domains = [
   'yinyuetai.com',
   'zendesk.com',
   'zhaopin.com',
-  'zippyshare.com']
+  'zippyshare.com'
+]
 
 module.exports = {
   retrieve: function (cb) {
