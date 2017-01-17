@@ -33,7 +33,6 @@ const adult = [
   'pussyspace.com',
   'r18.com',
   'serviporno.com',
-  'sheknows.com',
   'spankbang.com',
   'thumbzilla.com',
   'tnaflix.com',
