@@ -225,7 +225,6 @@ const domains = [
   'paypal.com',
   'paytm.com',
   'pccomponentes.com',
-  'pcmag.com',
   'persiantools.com',
   'plala.or.jp',
   'planetromeo.com',

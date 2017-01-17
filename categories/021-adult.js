@@ -19,7 +19,6 @@ const adult = [
   'javbus.com',
   'javhd.com',
   'javhihi.com',
-  'jezebel.com',
   'literotica.com',
   'livejasmin.com',
   'loverslab.com',
