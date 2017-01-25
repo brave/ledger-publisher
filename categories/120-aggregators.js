@@ -24,7 +24,6 @@ const domains = [
   'reddit.com',
   'reddituploads.com',
   'scribol.com',
-  'stackexchange.com',
   'subscene.com',
   'superuser.com',
   'theladbible.com',

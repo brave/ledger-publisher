@@ -27,7 +27,6 @@ const domains = [
   'bitdefender.com',
   'blackfriday.com',
   'blogspot.fi',
-  'boingboing.net',
   'clicksgear.com',
   'clicktabs.net',
   'clixsense.com',

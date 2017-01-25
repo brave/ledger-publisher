@@ -450,7 +450,6 @@ const domains = [
   'usefixie.com',
   'usps.com',
   'va.gov',
-  'vatican.va',
   'verizon.com',
   'vic.gov.au',
   'virginia.edu',
