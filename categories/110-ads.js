@@ -15,7 +15,6 @@ const domains = [
   'adrecreate.com',
   'adscpm.net',
   'adstimer.com',
-  'adweek.com',
   'altadefinizione01.black',
   'anetwork.ir',
   'appcloudprotected.com',
@@ -28,13 +27,11 @@ const domains = [
   'bitdefender.com',
   'blackfriday.com',
   'blogspot.fi',
-  'boingboing.net',
   'clicksgear.com',
   'clicktabs.net',
   'clixsense.com',
   'cloudfront.net',
   'confirmed-profits.com',
-  'dailywire.com',
   'disqus.com',
   'doubleclick.net',
   'doublepimp.com',
@@ -49,7 +46,6 @@ const domains = [
   'hyperpromote.com',
   'idealista.com',
   'ijquery11.com',
-  'ilmattino.it',
   'ipg-online.com',
   'joomla.org',
   'juicyads.com',
@@ -64,7 +60,6 @@ const domains = [
   'media-rocks.com',
   'mgid.com',
   'mixplugin.com',
-  'mundosexanuncio.com',
   'mymoneymakingapp.com',
   'mypayingads.com',
   'mytorrents.org',
@@ -85,7 +80,6 @@ const domains = [
   'popads.net',
   'poptm.com',
   'pornhubpremium.com',
-  'pravda.com.ua',
   'queryrouter.com',
   'redirectvoluum.com',
   'robinwidget.com',
@@ -100,9 +94,7 @@ const domains = [
   'splix.io',
   'spotscenered.info',
   'startgo123.com',
-  'sudouest.fr',
   'surfearner.com',
-  'telecinco.es',
   'terraclicks.com',
   'tgmgo.com',
   'theblackfriday.com',
@@ -123,7 +115,8 @@ const domains = [
   'www-searching.com',
   'xb11766.com',
   'yieldtraffic.com',
-  'zapmetasearch.com']
+  'zapmetasearch.com'
+]
 
 module.exports = {
   retrieve: function (cb) {

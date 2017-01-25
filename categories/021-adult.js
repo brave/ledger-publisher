@@ -1,9 +1,10 @@
-const adult = [  
+const adult = [
   '3movs.com',
   '4porn.com',
   '4tube.com',
   '8muses.com',
   'adult-empire.com',
+  'adultdvdempire.com',
   'adultfriendfinder.com',
   'ah-me.com',
   'alphaporno.com',
@@ -62,7 +63,6 @@ const adult = [
   'javhihi.com',
   'javhub.net',
   'javlibrary.com',
-  'jezebel.com',
   'keezmovies.com',
   'konbini.com',
   'literotica.com',
@@ -81,6 +81,7 @@ const adult = [
   'mylust.com',
   'naughtyblog.org',
   'nesaporn.com',
+  'neswangy.net',
   'noticias.uol.com.br',
   'nudevista.tv',
   'nudography.com',
@@ -108,7 +109,6 @@ const adult = [
   'sextvx.com',
   'sexu.com',
   'shameless.com',
-  'sheknows.com',
   'shooshtime.com',
   'showup.tv',
   'slutload.com',
@@ -117,6 +117,7 @@ const adult = [
   'teatroporno.com',
   'thefappening.so',
   'thegay.com',
+  'thenewporn.com',
   'theporndude.com',
   'theync.com',
   'thisvid.com',
@@ -127,9 +128,11 @@ const adult = [
   'tubxporn.com',
   'tukif.com',
   'txxx.com',
+  'unfaithfulxxx.com',
   'updatetube.com',
   'uploadboy.com',
   'upornia.com',
+  'veporn.net',
   'vielerporno.com',
   'viptube.com',
   'vjav.com',
@@ -143,7 +146,8 @@ const adult = [
   'xonline.vip',
   'xxxpornotuber.com',
   'yespornplease.com',
-  'yourlust.com']
+  'yourlust.com'
+]
 
 module.exports = {
   retrieve: function (cb) {

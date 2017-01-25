@@ -9,7 +9,8 @@ const searchEngines = [
   'sogou',
   'yahoo',
   'yandex',
-  'youdao']
+  'youdao'
+]
 
 const searchEnginesSLD = [
   '123rf.com',
@@ -24,7 +25,6 @@ const searchEnginesSLD = [
   'aviasales.ru',
   'bab.la',
   'bdjobs.com',
-  'biblestudytools.com',
   'bitsnoop.com',
   'blablacar.ru',
   'brasilescola.uol.com.br',
@@ -37,15 +37,14 @@ const searchEnginesSLD = [
   'consultant.ru',
   'couch-tuner.city',
   'dasoertliche.de',
-  'delish.com',
   'dice.com',
   'discretesearch.com',
   'downspeedtest.com',
   'duckduckgo.com',
   'ecosia.org',
   'edgesuite.net',
-  'elastic.co',
   'emojipedia.org',
+  'elastic.co',
   'experts-exchange.com',
   'feebee.com.tw',
   'findanime.ru',
@@ -111,7 +110,6 @@ const searchEnginesSLD = [
   'myvidster.com',
   'myway.com',
   'neswangy.net',
-  'newsru.com',
   'nn.ru',
   'oursurfing.com',
   'pages.tmall.com',
@@ -153,10 +151,8 @@ const searchEnginesSLD = [
   'studopedia.org',
   'suapesquisa.com',
   'symbolab.com',
-  'tasteofhome.com',
   'themuse.com',
   'theprofitsmaker.net',
-  'thesaurus.com',
   'tineye.com',
   'torlock.com',
   'torrentdownloads.me',
@@ -177,18 +173,14 @@ const searchEnginesSLD = [
   'tripadvisor.ru',
   'ubc.ca',
   'ucas.com',
-  'unfaithfulxxx.com',
   'usa.gov',
   'utorrentmui.com',
-  'veporn.net',
   'wallpapercave.com',
   'weblio.jp',
   'webssearches.com',
   'who.is',
   'whois.net',
   'withgoogle.com',
-  'wolframalpha.com',
-  'wonderhowto.com',
   'work.ua',
   'yify-torrent.org',
   'yifymovie.re',
@@ -198,7 +190,8 @@ const searchEnginesSLD = [
   'zillow.com',
   'ziprecruiter.com',
   'zoopla.co.uk',
-  'zybang.com']
+  'zybang.com'
+]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 

@@ -27,7 +27,6 @@ const contentStoresSLD = [
   'putlockers.ch',
   'rarbg.to',
   'rutracker.org',
-  'sciencedirect.com',
   'seasonvar.ru',
   'shutterstock.com',
   'softonic.com',
@@ -35,9 +34,7 @@ const contentStoresSLD = [
   'thepiratebay.org',
   'trello.com',
   'tumblr.com',
-  'tutorialspoint.com',
   'uptodown.com',
-  'w3schools.com',
   'wordpress.com',
   'yts.ag'
 ]

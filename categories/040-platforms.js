@@ -20,13 +20,13 @@ const platforms = [
   'vk',
   'xvideos',
   'youku',
-  'youtube']
+  'youtube'
+]
 
 const platformsSLD = [
   '1111.com.tw',
   '17k.com',
   '17track.net',
-  '20min.ch',
   '2ch.net',
   '36kr.com',
   '4cdn.org',
@@ -47,8 +47,6 @@ const platformsSLD = [
   'alimama.com',
   'alipay.com',
   'alitrip.com',
-  'allaboutwomen.in',
-  'allrecipes.com',
   'alodokter.com',
   'ameblo.jp',
   'anjuke.com',
@@ -57,7 +55,6 @@ const platformsSLD = [
   'appannie.com',
   'appgame.com',
   'arcgis.com',
-  'arduino.cc',
   'artstation.com',
   'asianfanfics.com',
   'ask.fm',
@@ -90,7 +87,6 @@ const platformsSLD = [
   'bolha.com',
   'books.com.tw',
   'bozhong.com',
-  'bradva.bg',
   'brainly.com.br',
   'brainyquote.com',
   'btcclicks.com',
@@ -114,14 +110,9 @@ const platformsSLD = [
   'colorlib.com',
   'commonhealth.com.tw',
   'counter-strike.net',
-  'cplusplus.com',
-  'creativecommons.org',
   'crunchbase.com',
   'csdn.net',
-  'cyberciti.biz',
   'cybozu.com',
-  'dailykos.com',
-  'dailysnark.com',
   'dealnews.com',
   'deezer.com',
   'depositfiles.com',
@@ -136,7 +127,6 @@ const platformsSLD = [
   'dopa.com.cn',
   'douyu.com',
   'dropbox.com',
-  'drupal.org',
   'dumpaday.com',
   'duomai.com',
   'e-monsite.com',
@@ -193,8 +183,6 @@ const platformsSLD = [
   'hrloo.com',
   'hubspot.com',
   'hubspot.net',
-  'huffingtonpost.de',
-  'huffingtonpost.it',
   'iconarchive.com',
   'iemo.jp',
   'ifixit.com',
@@ -202,7 +190,6 @@ const platformsSLD = [
   'imgchili.net',
   'indeed.co.in',
   'indiapost.gov.in',
-  'instructables.com',
   'invisionapp.com',
   'iqiyi.com',
   'ispot.news',
@@ -238,7 +225,6 @@ const platformsSLD = [
   'mediafire.com',
   'mercadolibre.com.ar',
   'mercadolivre.com.br',
-  'merriam-webster.com',
   'mileroticos.com',
   'minecraftskins.com',
   'mobafire.com',
@@ -330,7 +316,6 @@ const platformsSLD = [
   'solidfiles.com',
   'soundcloud.com',
   'souq.com',
-  'stackexchange.com',
   'steamcommunity.com',
   'steampowered.com',
   'storify.com',
@@ -356,7 +341,6 @@ const platformsSLD = [
   'twitch.tv',
   'twoo.com',
   'txxx.com',
-  'tympanus.net',
   'typekit.com',
   'typepad.com',
   'ubuntu.com',
@@ -388,7 +372,6 @@ const platformsSLD = [
   'wolfram.com',
   'woocommerce.com',
   'wordpress.com',
-  'wordpress.org',
   'wp.com',
   'xitu.io',
   'xpg.uol.com.br',
@@ -405,7 +388,8 @@ const platformsSLD = [
   'zillow.com',
   'znanija.com',
   'zoom.us',
-  'zoominfo.com']
+  'zoominfo.com'
+]
 
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
