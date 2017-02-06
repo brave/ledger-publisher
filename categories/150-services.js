@@ -1112,7 +1112,6 @@ const domains = [
   'track-trace.com',
   'tradepub.com',
   'tradestation.com',
-  'trakt.tv',
   'translate.ru',
   'travelchinaguide.com',
   'trimble.com',

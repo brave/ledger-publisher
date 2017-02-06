@@ -61,6 +61,7 @@ const domains = [
   'amazon.fr',
   'amazon.in',
   'amazon.it',
+  'amazon.com',
   'amazonaws.com',
   'americanapparel.net',
   'americanmuscle.com',
