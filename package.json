@@ -7,7 +7,7 @@
     "dump": "node dump.js",
     "dump2": "node dump2.js",
     "lint": "standard",
-    "test": "npm run test-security test-logic",
+    "test": "npm run test-security; npm run test-logic",
     "test-security": "nsp check",
     "test-logic": "tap test",
     "build-rules": "node tools/build-rules.js > rules/index.js"
