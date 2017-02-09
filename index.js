@@ -30,6 +30,19 @@ var schema = Joi.array().min(1).items(Joi.object().keys(
   }
 ))
 
+var schemaV2 = Joi.object().keys(
+  { condition: Joi.alternatives().try(Joi.string().description('a JavaScript boolean expression'),
+                                      Joi.boolean().allow(true).description('only "true" makes sense')).required(),
+    consequent: Joi.alternatives().try(Joi.string().description('a JavaScript string expression'),
+                                      Joi.any().allow(false, null).description('or null').required()),
+    dom: Joi.any().optional().description('DOM equivalent logic'),
+    properties: Joi.object().keys().unknown(true),
+    description: Joi.string().optional().description('a brief annotation'),
+    priority: Joi.number().positive().integer().default(0).description('ruleset priority'),
+    timestamp: Joi.string().regex(/^[0-9]+$/).optional().description('an opaque, monotonically-increasing value')
+  }
+)
+
 var getPublisher = function (location, markup) {
   var consequent, i, result, rule
   var props = getPublisherProps(location)
@@ -400,6 +413,7 @@ module.exports = {
 // Note - the rules are dynamically built via the 'npm run build-rules' script (do not edit the rules/index.js file directly)
   ruleset: require('./rules'),
   schema: schema,
+  schemaV2: schemaV2,
   Synopsis: Synopsis
 }
 
