@@ -36,5 +36,3 @@ module.exports = {
     }, complete)
   }
 }
-
-console.log(JSON.stringify(module.exports.categories(), null, 2))
