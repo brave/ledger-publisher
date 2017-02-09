@@ -1,3 +1,7 @@
+const SLDs = [
+  'campaign-archive[0-9]+.com'
+]
+
 const domains = [
   '10010.com',
   '104.com.tw',
@@ -181,7 +185,6 @@ const domains = [
   'cableone.net',
   'caixabank.es',
   'calendly.com',
-  'campaign-archive2.com',
   'canada.ca',
   'capgemini.com',
   'capitalone.com',
@@ -1262,7 +1265,7 @@ const domains = [
 ]
 
 module.exports = {
-  properties: { domain: domains },
+  properties: { SLD: SLDs, domain: domains },
 
   build: function (cb) {
     const transformedList = domains.map((item) => { return `'${item}'` }).join(', ')
