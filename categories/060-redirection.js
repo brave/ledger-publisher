@@ -1,15 +1,13 @@
-const redirectionPoints = [
+const domains = [
   '8307.ws',
   't.co'
 ]
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, redirectionPoints)
-  },
+  properties: { domain: domains },
 
   build: function (cb) {
-    const transformedList = redirectionPoints.map((item) => { return `'${item}'` }).join(', ')
+    const transformedList = domains.map((item) => { return `'${item}'` }).join(', ')
     const rule = {
       condition: `(new Set([ ${transformedList} ])).has(SLD)`,
       consequent: null,

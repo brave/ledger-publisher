@@ -1,4 +1,4 @@
-const adult = [
+const domains = [
   '1001dvds.com',
   '16honeys.com',
   '18porno.tv',
@@ -569,12 +569,10 @@ const adult = [
 ]
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, adult)
-  },
+  properties: { domain: domains },
 
   build: function (cb) {
-    const transformedList = adult.map((item) => { return `'${item}'` }).join(', ')
+    const transformedList = domains.map((item) => { return `'${item}'` }).join(', ')
     const rule = {
       condition: `(new Set([ ${transformedList} ])).has(SLD)`,
       consequent: null,

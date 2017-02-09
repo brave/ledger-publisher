@@ -1,4 +1,4 @@
-const platforms = [
+const SLDs = [
   'bilibili',
   'blogger',
   'blogspot',
@@ -23,7 +23,7 @@ const platforms = [
   'youtube'
 ]
 
-const platformsSLD = [
+const domains = [
   '1111.com.tw',
   '123456790.com',
   '17k.com',
@@ -290,7 +290,7 @@ const platformsSLD = [
   'e-monsite.com',
   'easel.ly',
   'easy-firmware.com',
-  'ecommerce-platforms.com',
+  'ecommerce-SLDs.com',
   'economicsdiscussion.net',
   'ecrent.com',
   'eda.ru',
@@ -1027,14 +1027,12 @@ const platformsSLD = [
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, platformsSLD.concat(platforms))
-  },
+  properties: { SLD: SLDs, domain: domains },
 
   build: function (cb) {
-    const transformedList = platforms.map((item) => { return `'${item}'` }).join(', ')
+    const transformedList = SLDs.map((item) => { return `'${item}'` }).join(', ')
     var condition = `(new Set([ ${transformedList} ])).has(SLD.split('.')[0])`
-    platformsSLD.forEach(function (SLD) {
+    domains.forEach(function (SLD) {
       condition += ' || /' + regexpEscape(SLD) + '$/.test(SLD)'
     })
 

@@ -1,8 +1,8 @@
-const contentStoresTLD = [
+const TLDs = [
   'githubusercontent.com'
 ]
 
-const contentStoresSLD = [
+const domains = [
   '123rf.com',
   '163.com',
   '3sk.tv',
@@ -42,14 +42,12 @@ const contentStoresSLD = [
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, contentStoresSLD.concat(contentStoresTLD))
-  },
+  properties: { TLD: TLDs, domain: domains },
 
   build: function (cb) {
-    const transformedListTLD = contentStoresTLD.map((item) => { return `'${item}'` }).join(', ')
+    const transformedListTLD = TLDs.map((item) => { return `'${item}'` }).join(', ')
     var condition = `(new Set([ ${transformedListTLD} ])).has(TLD)`
-    contentStoresSLD.forEach(function (SLD) {
+    domains.forEach(function (SLD) {
       condition += ' || /' + regexpEscape(SLD) + '$/.test(SLD)'
     })
 

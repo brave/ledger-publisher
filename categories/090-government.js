@@ -1,7 +1,5 @@
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, [])
-  },
+  properties: { TLD: [ 'gov', '^go.[a-z][a-z]$', '^gov.[a-z][a-z]$' ] },
 
   build: function (cb) {
     const rule = {

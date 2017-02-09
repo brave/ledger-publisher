@@ -1,4 +1,4 @@
-const machineTranslations = [
+const domains = [
   'baiducontent.com',
   'googleusercontent.com',
   'microsofttranslator.com',
@@ -6,12 +6,10 @@ const machineTranslations = [
 ]
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, machineTranslations)
-  },
+  properties: { domain: domains },
 
   build: function (cb) {
-    const transformedList = machineTranslations.map((item) => { return `'${item}'` }).join(', ')
+    const transformedList = domains.map((item) => { return `'${item}'` }).join(', ')
     const rule = {
       condition: `(new Set([ ${transformedList} ])).has(SLD)`,
       consequent: null,

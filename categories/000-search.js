@@ -1,4 +1,4 @@
-const searchEngines = [
+const SLDs = [
   'baidu',
   'bing',
   'dogpile',
@@ -12,7 +12,7 @@ const searchEngines = [
   'youdao'
 ]
 
-const searchEnginesSLD = [
+const domains = [
   '118712.fr',
   '123rf.com',
   '1337x.pl',
@@ -542,14 +542,12 @@ const searchEnginesSLD = [
 const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, searchEnginesSLD.concat(searchEngines))
-  },
+  properties: { SLD: SLDs, domain: domains },
 
   build: function (cb) {
-    const transformedList = searchEngines.map((item) => { return `'${item}'` }).join(', ')
+    const transformedList = SLDs.map((item) => { return `'${item}'` }).join(', ')
     var condition = `(new Set([ ${transformedList} ])).has(SLD.split('.')[0])`
-    searchEnginesSLD.forEach(function (SLD) {
+    domains.forEach(function (SLD) {
       condition += ' || /' + regexpEscape(SLD) + '$/.test(SLD)'
     })
 

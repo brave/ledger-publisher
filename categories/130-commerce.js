@@ -1168,9 +1168,7 @@ const domains = [
 ]
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, domains)
-  },
+  properties: { domain: domains },
 
   build: function (cb) {
     const transformedList = domains.map((item) => { return `'${item}'` }).join(', ')

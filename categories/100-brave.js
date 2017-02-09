@@ -1,14 +1,12 @@
-const brave = [
+const domains = [
   'brave.com'
 ]
 
 module.exports = {
-  retrieve: function (cb) {
-    cb(null, brave)
-  },
+  properties: { domain: domains },
 
   build: function (cb) {
-    const transformedList = brave.map((item) => { return `'${item}'` }).join(', ')
+    const transformedList = domains.map((item) => { return `'${item}'` }).join(', ')
     const rule = {
       condition: `(new Set([ ${transformedList} ])).has(SLD)`,
       consequent: null,
