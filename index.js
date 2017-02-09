@@ -401,6 +401,7 @@ Synopsis.prototype.prune = function () {
 module.exports = {
   getPublisher: getPublisher,
   getPublisherProps: getPublisherProps,
+  getCategories: require('./categories'),
   getRules: require('./categories').all,
   isPublisher: isPublisher,
 // Note - the rules are dynamically built via the 'npm run build-rules' script (do not edit the rules/index.js file directly)

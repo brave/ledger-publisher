@@ -1,5 +1,5 @@
-const glob = require('glob')
 const async = require('async')
+const glob = require('glob')
 
 const modules = glob.sync('[0-9]*.js', { cwd: __dirname }).sort()
 
@@ -10,6 +10,15 @@ const defaultRule = {
 }
 
 module.exports = {
+  categories: function () {
+    var categories = {}
+
+    modules.forEach(function (module) {
+      categories[module] = require('./' + module).properties
+    })
+
+    return categories
+  },
   modules: function () {
     return modules
   },
@@ -27,3 +36,5 @@ module.exports = {
     }, complete)
   }
 }
+
+console.log(JSON.stringify(module.exports.categories(), null, 2))
