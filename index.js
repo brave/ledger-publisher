@@ -299,9 +299,9 @@ Synopsis.prototype.winner = function () {
   return (result ? result[0] : result)
 }
 
-Synopsis.prototype.winners = function (n) {
+Synopsis.prototype.winners = function (n, weights) {
   var i, point, upper, winners
-  var results = this.topN()
+  var results = weights || this.topN()
 
   if (!results) return
 
@@ -356,10 +356,10 @@ Synopsis.prototype.scorekeepers.visits = function (/* props */) {
   return 1
 }
 
-Synopsis.prototype.prune = function () {
+Synopsis.prototype.prune = function (then) {
   var now = underscore.now()
-  var then = now - (this.options.numFrames * this.options.frameSize)
 
+  if (!then) then = now - (this.options.numFrames * this.options.frameSize)
   underscore.keys(this.publishers).forEach(function (publisher) {
     var i
     var duration = 0
