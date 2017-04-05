@@ -113,11 +113,10 @@ var Synopsis = function (options) {
 
   this.options = options || {}
   this.options.scorekeepers = underscore.keys(Synopsis.prototype.scorekeepers)
-  underscore.defaults(this.options, { minDuration: 10 * 1000,
+  underscore.defaults(this.options, { minPublisherDuration: 8 * 1000,
                                       numFrames: 30,
                                       frameSize: 24 * 60 * 60 * 1000,
                                       _d: 1 / (30 * 1000),
-                                      minPublisherDuration: 0,
                                       minPublisherVisits: 0
                                     })
   if (!this.options.scorekeepers[this.options.scorekeeper]) {
@@ -128,10 +127,10 @@ var Synopsis = function (options) {
     this.options.emptyScores[scorekeeper] = 0
   }, this)
 
-  underscore.defaults(this.options, { _a: (1 / (this.options._d * 2)) - this.options.minDuration })
+  underscore.defaults(this.options, { _a: (1 / (this.options._d * 2)) - this.options.minPublisherDuration })
   this.options._a2 = this.options._a * 2
   this.options._a4 = this.options._a2 * 2
-  underscore.defaults(this.options, { _b: this.options.minDuration - this.options._a })
+  underscore.defaults(this.options, { _b: this.options.minPublisherDuration - this.options._a })
   this.options._b2 = this.options._b * this.options._b
 
   underscore.keys(this.publishers).forEach(function (publisher) {
@@ -164,7 +163,7 @@ var Synopsis = function (options) {
 Synopsis.prototype.addVisit = function (location, duration, markup) {
   var publisher
 
-  if (duration < this.options.minDuration) return
+  if (duration < this.options.minPublisherDuration) return
 
   try { publisher = getPublisher(location, markup) } catch (ex) { return }
   if (!publisher) return
@@ -205,7 +204,7 @@ Synopsis.prototype.addPublisher = function (publisher, props) {
   if (!props) return
 
   if (typeof props === 'number') props = { duration: props }
-  if ((!props.stickyP) && (props.duration < this.options.minDuration)) return
+  if ((!props.stickyP) && (props.duration < this.options.minPublisherDuration)) return
 
   scores = this.scores(props)
   if (!scores) return
