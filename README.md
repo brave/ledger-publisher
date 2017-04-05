@@ -162,13 +162,13 @@ In order to calculate the score,
 options can be provided when creating the object.
 The defaults are:
 
-    { minDuration    : 10 * 1000
+    { minPublisherDuration    : 8 * 1000
     , numFrames      : 30
     , frameSize      : 24 * 60 * 60 * 1000
     }
 
 When `addVisit` is invoked,
-the duration must be at least `minDuration` milliseconds in length.
+the duration must be at least `minPublisherDuration` milliseconds in length.
 If so,
 then one or more "scorekeepers" are run to calculate the score for the visit,
 using both the `options` and `props`.
@@ -198,8 +198,8 @@ only the `concave` scorekeeper makes use of these.
 The defaults are:
 
     { _d : 1 / (30 * 1000)              //    0.0000333...
-    , _a : (1 / (_d * 2)) - minDuration // 5000
-    , _b : minDuration - _a             // 5000
+    , _a : (1 / (_d * 2)) - minPublisherDuration // 5000
+    , _b : minPublisherDuration - _a             // 5000
     }
 
 The sliding window consist of `numFrames` frames,
