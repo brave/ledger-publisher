@@ -383,10 +383,8 @@ Synopsis.prototype.prune = function (then) {
       }, this)
     }
 
-    if (visits === 0) {
-      delete this.publishers[publisher]
-      return
-    }
+    // do not delete the entry as it may have options
+    if (visits === 0) return
 
     if (i < entry.window.length) {
       entry.visits = visits
