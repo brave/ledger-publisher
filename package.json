@@ -1,6 +1,6 @@
 {
   "name": "ledger-publisher",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Routines to identify publishers for the Brave ledger.",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "test-security": "nsp check",
     "test-logic": "tap test",
     "build-rules": "node tools/build-rules.js > rules/index.js",
-    "rebuild-rules": "node tools/rebuild-rules.js categories/rulesets.json > rules/index.js"
+    "rebuild-rules": "node tools/rebuild-rules.js categories/rulesets.json > rules/index.js",
+    "make-bootstrap": "node tools/make-bootstrap.js > bootstrap.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "gulp-run": "^1.7.1",
     "gulp-standard": "^5.2.2",
     "knodeo-http-sync": "^0.1.0",
+    "level": "1.5.0",
     "nsp": "^2.2.0",
     "run-sequence": "^1.1.0",
     "standard": "8.1.0",

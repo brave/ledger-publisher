@@ -34,3 +34,6 @@ node_modules
 
 # Babel
 .babelrc
+
+# ledger-client bootstrap
+bootstrap.js
