@@ -10,7 +10,7 @@ console.log('module.exports = { _: undefined')
 var traverse = function (paths) {
   var data, name, splitP, stamp
   var lastamp = ''
-  
+
   if (paths.length === 0) return console.log('}')
 
   name = path.basename(paths[0], '.leveldb')
@@ -25,7 +25,7 @@ var traverse = function (paths) {
 
   console.log(', ' + data + ': [')
   levelup(paths[0]).createReadStream().on('data', function (data) {
-    var pair, value, x
+    var pair, value
 
     try {
       value = JSON.parse(data.value)
@@ -44,7 +44,7 @@ var traverse = function (paths) {
       console.log(JSON.stringify(data, null, 2))
       process.exit(1)
     }
-  }).on('error', function(err) {
+  }).on('error', function (err) {
     console.log('err: ' + err.toString)
     process.exit(1)
   }).on('close', function () {
@@ -54,6 +54,6 @@ var traverse = function (paths) {
   })
 }
 
-traverse([ process.env.HOME + '/Library/Application Support/brave-development/ledger-publishersV2.leveldb'
-         , process.env.HOME + '/Library/Application Support/brave-development/ledger-rulesV2.leveldb'
+traverse([ process.env.HOME + '/Library/Application Support/brave-development/ledger-publishersV2.leveldb',
+          process.env.HOME + '/Library/Application Support/brave-development/ledger-rulesV2.leveldb'
          ])
