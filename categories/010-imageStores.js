@@ -1,4 +1,5 @@
 const SLDs = [
+  'cloud.githubusercontent',
   'githubusercontent',
   'ssl-images-amazon',
   'twimg',

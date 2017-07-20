@@ -539,7 +539,7 @@ const domains = [
   'zzap.ru'
 ]
 
-const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
+const regexpEscape = function (s) { return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
   properties: { SLD: SLDs, domain: domains },

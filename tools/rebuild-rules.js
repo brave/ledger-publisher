@@ -29,7 +29,7 @@ JSON.parse(fs.readFileSync(process.argv[2])).forEach(function (rule) {
 })
 // console.log(JSON.stringify(rules, null, 2))
 
-var regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
+var regexpEscape = function (s) { return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 var exports = []
 facets.forEach(function (facet) {
@@ -56,9 +56,9 @@ facets.forEach(function (facet) {
           condition = 'TLD === "' + domain + '"'
         }
         exports.push({ condition: condition,
-                       consequent: null,
-                       description: 'exclude ' + facet + ' ' + (tag ? (tag + ' ') : '') + domain
-                     })
+          consequent: null,
+          description: 'exclude ' + facet + ' ' + (tag ? (tag + ' ') : '') + domain
+        })
       })
       condition = null
     } else {
@@ -69,9 +69,9 @@ facets.forEach(function (facet) {
     }
     if (condition) {
       exports.push({ condition: condition,
-                     consequent: null,
-                     description: 'exclude ' + facet + (tag ? (' ' + tag) : '')
-                   })
+        consequent: null,
+        description: 'exclude ' + facet + (tag ? (' ' + tag) : '')
+      })
     }
   })
 })

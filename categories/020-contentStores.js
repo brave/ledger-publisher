@@ -1,4 +1,5 @@
 const TLDs = [
+  'cloud.githubusercontent.com',
   'githubusercontent.com'
 ]
 
@@ -39,7 +40,7 @@ const domains = [
   'yts.ag'
 ]
 
-const regexpEscape = function (s) { return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') }
+const regexpEscape = function (s) { return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') }
 
 module.exports = {
   properties: { TLD: TLDs, domain: domains },

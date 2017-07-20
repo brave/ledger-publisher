@@ -1,6 +1,6 @@
 {
   "name": "ledger-publisher",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Routines to identify publishers for the Brave ledger.",
   "main": "index.js",
   "scripts": {
@@ -28,27 +28,32 @@
     "async": "^2.0.1",
     "data-expression": "1.0.0",
     "glob": "^7.0.6",
-    "joi": "^9.0.0-2",
-    "jsdom": "9.1.0",
+    "joi": "^10.6.0",
+    "jsdom": "11.1.0",
     "random-lib": "2.1.0",
-    "tldjs": "1.6.2",
+    "tldjs": "1.7.0",
     "underscore": "1.8.3",
     "underscore.string": "3.3.4"
   },
   "engines": {
-    "node": ">= 7.0.0"
+    "node": "7.10.1",
+    "npm": "4.2.0"
   },
   "devDependencies": {
-    "del": "^2.0.2",
+    "babel-eslint": "^7.2.1",
+    "del": "^3.0.0",
     "gulp": "^3.9.0",
     "gulp-run": "^1.7.1",
-    "gulp-standard": "^5.2.2",
+    "gulp-standard": "^10.0.0",
     "knodeo-http-sync": "^0.1.0",
-    "level": "1.5.0",
+    "level": "1.7.0",
     "nsp": "^2.2.0",
-    "run-sequence": "^1.1.0",
-    "standard": "8.1.0",
-    "tap": "^7.1.2",
-    "uuid": "3.0.0"
+    "run-sequence": "^2.0.0",
+    "standard": "10.0.2",
+    "tap": "^10.7.0",
+    "uuid": "3.1.0"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

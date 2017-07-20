@@ -6,7 +6,6 @@ var tldjs = require('tldjs')
 var trim = require('underscore.string/trim')
 var underscore = require('underscore')
 var url = require('url')
-var util = require('util')
 
 /* foo.bar.example.com
     QLD = 'bar'
@@ -37,7 +36,7 @@ var getPublisher = function (location, markup, ruleset) {
 
   if (!props) return
 
-  if ((!ruleset) && util.isArray(markup)) {
+  if ((!ruleset) && Array.isArray(markup)) {
     ruleset = markup
     markup = undefined
   }
@@ -114,11 +113,11 @@ var Synopsis = function (options) {
   this.options = options || {}
   this.options.scorekeepers = underscore.keys(Synopsis.prototype.scorekeepers)
   underscore.defaults(this.options, { minPublisherDuration: 8 * 1000,
-                                      numFrames: 30,
-                                      frameSize: 24 * 60 * 60 * 1000,
-                                      _d: 1 / (30 * 1000),
-                                      minPublisherVisits: 0
-                                    })
+    numFrames: 30,
+    frameSize: 24 * 60 * 60 * 1000,
+    _d: 1 / (30 * 1000),
+    minPublisherVisits: 0
+  })
   if (!this.options.scorekeepers[this.options.scorekeeper]) {
     this.options.scorekeeper = underscore.first(this.options.scorekeepers)
   }
@@ -187,14 +186,14 @@ Synopsis.prototype.initPublisher = function (publisher, now, props) {
   }
 
   this.publishers[publisher] = { visits: 0,
-                                 duration: 0,
-                                 options: { stickyP: props.stickyP },
-                                 scores: underscore.clone(this.options.emptyScores),
-                                 window: [ { timestamp: underscore.now(),
-                                             visits: 0,
-                                             duration: 0,
-                                             scores: underscore.clone(this.options.emptyScores) } ]
-                               }
+    duration: 0,
+    options: { stickyP: props.stickyP },
+    scores: underscore.clone(this.options.emptyScores),
+    window: [ { timestamp: underscore.now(),
+      visits: 0,
+      duration: 0,
+      scores: underscore.clone(this.options.emptyScores) } ]
+  }
 }
 
 Synopsis.prototype.addPublisher = function (publisher, props) {
@@ -214,9 +213,9 @@ Synopsis.prototype.addPublisher = function (publisher, props) {
 
   if (entry.window[0].timestamp <= now - this.options.frameSize) {
     entry.window = [ { timestamp: now,
-                       visits: 0,
-                       duration: 0,
-                       scores: underscore.clone(this.options.emptyScores) }].concat(entry.window)
+      visits: 0,
+      duration: 0,
+      scores: underscore.clone(this.options.emptyScores) }].concat(entry.window)
   }
 
   if (!props.revisitP) entry.window[0].visits++

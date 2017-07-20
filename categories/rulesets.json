@@ -108,6 +108,15 @@
     "timestamp": "6386968242937659928"
   },
   {
+    "publisher": "cloud.githubusercontent",
+    "facet": "SLD",
+    "exclude": true,
+    "tags": [
+      "imageStores"
+    ],
+    "timestamp": "6444889549121257473"
+  },
+  {
     "publisher": "ssl-images-amazon",
     "facet": "SLD",
     "exclude": true,
@@ -142,6 +151,15 @@
       "contentStores"
     ],
     "timestamp": "6386968242937659932"
+  },
+  {
+    "publisher": "cloud.githubusercontent.com",
+    "facet": "TLD",
+    "exclude": true,
+    "tags": [
+      "contentStores"
+    ],
+    "timestamp": "6444889815409229825"
   },
   {
     "publisher": "bilibili",
@@ -5148,6 +5166,15 @@
     "timestamp": "6389296063672484372"
   },
   {
+    "publisher": "cloud.githubusercontent",
+    "facet": "SLD",
+    "exclude": true,
+    "tags": [
+      "imageStores"
+    ],
+    "timestamp": "6444889549121257474"
+  },
+  {
     "publisher": "twimg",
     "facet": "SLD",
     "exclude": true,
@@ -5173,6 +5200,15 @@
       "contentStores"
     ],
     "timestamp": "6389296063672484375"
+  },
+  {
+    "publisher": "cloud.githubusercontent.com",
+    "facet": "TLD",
+    "exclude": true,
+    "tags": [
+      "contentStores"
+    ],
+    "timestamp": "6444889815409229826"
   },
   {
     "publisher": "123rf.com",
