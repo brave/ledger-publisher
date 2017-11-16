@@ -1,3 +1,4 @@
+# NOTE: This repo is deprecated, please see [bat-publisher](https://github.com/brave-intl/bat-publisher)
 # ledger-publisher
 Routines to identify publishers for the [Brave ledger](https://github.com/brave/ledger):
 
